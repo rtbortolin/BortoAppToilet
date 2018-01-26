@@ -1,0 +1,26 @@
+{
+  "name": "BDCSaoCarlosToiletCleaningAlert",
+  "appName": "BDC São Carlos Toilet Cleaning Alert",
+  "version": "1.0.0",
+  "description": "App to show notifications when the bathroons on São Carlos BDC is being cleaned.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "release": "node scripts/build_release.js"
+  },
+  "author": "Rafael Bortolin",
+  "company": "Amdocs",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "electron": "^1.7.10",
+    "express": "^4.16.2",
+    "node-notifier": "^5.2.1"
+  },
+  "dependecies-dev": {
+    "electron-packager": "^10.1.1",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
