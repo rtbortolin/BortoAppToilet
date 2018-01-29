@@ -13,7 +13,7 @@ const {
 
 const main = {};
 let bw;
-const icon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-black.png`);
+const icon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-green.png`);
 
 function showAppClick() {
   bw.show();
@@ -95,5 +95,6 @@ function getMainWindow() {
 main.getMainWindow = getMainWindow;
 
 schedule.start(main);
+iconHelper.start(main);
 
 module.exports = main;

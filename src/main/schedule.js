@@ -3,7 +3,7 @@ const appConfig = require('../../package');
 const CONSTS = require('./constants');
 
 let main;
-let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\b_schedule.txt';
+let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\t_schedule.txt';
 if (CONSTS.env === 'dev') {
   filePath = './src/main/resources/schedule.txt';
 }

@@ -3,7 +3,7 @@ const appConfig = require('../../package');
 
 const { app } = electron;
 
-const toiletBlackIcon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-black.png`);
+const toiletGreenIcon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-green.png`);
 const toiletRedIcon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-red.png`);
 
 class IconHelper {
@@ -16,26 +16,26 @@ class IconHelper {
     this.getTrayMessage = this.getTrayMessage.bind(this);
     this.addScheduleHapening = this.addScheduleHapening.bind(this);
     this.removeScheduleHapening = this.removeScheduleHapening.bind(this);
+    this.main = {};
   }
 
   changeIcon(iscleaning) {
-    const main = require('../../main');
-    const { mainWindow } = main;
+    const mainWindow = this.main.getMainWindow();
 
     this.setTrayClick(mainWindow.tray);
 
     if (iscleaning) {
-      if (mainWindow.icon === undefined || mainWindow.icon === toiletBlackIcon) {
+      if (mainWindow.icon === undefined || mainWindow.icon === toiletGreenIcon) {
         mainWindow.icon = toiletRedIcon;
         mainWindow.tray.setImage(toiletRedIcon);
         mainWindow.tray.setToolTip(this.getTrayMessage());
         mainWindow.setIcon(toiletRedIcon, '');
       }
     } else if (mainWindow.icon === undefined || mainWindow.icon === toiletRedIcon) {
-      mainWindow.icon = toiletBlackIcon;
-      mainWindow.tray.setImage(toiletBlackIcon);
+      mainWindow.icon = toiletGreenIcon;
+      mainWindow.tray.setImage(toiletGreenIcon);
       mainWindow.tray.setToolTip(this.getTrayMessage());
-      mainWindow.setIcon(toiletBlackIcon, '');
+      mainWindow.setIcon(toiletGreenIcon, '');
     }
   }
 
@@ -86,6 +86,10 @@ class IconHelper {
         this.schedulesHappening.splice(index, 1);
       }
     }
+  }
+
+  start(mainModule) {
+    this.main = mainModule;
   }
 }
 
