@@ -1,7 +1,11 @@
 const fs = require('fs');
 const appConfig = require('../../package');
+const CONSTS = require('./constants');
 
-const filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\b_schedule.txt';
+let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\b_schedule.txt';
+if (CONSTS.env === 'dev') {
+  filePath = './src/main/resources/schedule.txt';
+}
 
 function read(file, callback) {
   fs.readFile(file, 'utf8', (err, data) => {
@@ -25,7 +29,7 @@ setInterval(
       console.log('File updated.');
     });
   },
-  86400000,
+  CONSTS.reloadFileTimeout,
 );
 
 const Schedule = class Schedule {
@@ -85,7 +89,7 @@ function getSchedules() {
   if (output === undefined) {
     return undefined;
   }
-  const lines = output.split('\r\n');
+  const lines = output.split('\n');
   const newSchedules = [];
   lines.forEach((line) => {
     const schedule = processLine(line);

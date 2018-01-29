@@ -1,8 +1,6 @@
-const electron = require('electron');
 const getSchedule = require('./schedule');
 const iconHelper = require('./iconHelper');
-
-const { app } = electron;
+const CONSTS = require('./constants');
 
 let isBathCleaning = false;
 function processTime() {
@@ -30,9 +28,11 @@ function processTime() {
   iconHelper.changeIcon(isBathCleaning);
 }
 
-app.on('ready', () => {
+function start() {
   processTime();
   setInterval(() => {
     processTime();
-  }, 30000);
-});
+  }, CONSTS.runScheduleCheckerTimeout);
+}
+
+module.exports = start;

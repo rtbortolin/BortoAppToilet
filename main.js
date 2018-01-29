@@ -2,6 +2,7 @@ require('body-parser');
 require('express');
 
 require('./src/main/schedule');
+const scheduleChecker = require('./src/main/scheduleChecker');
 const electron = require('electron');
 const appConfig = require('./package');
 const iconHelper = require('./src/main/iconHelper');
@@ -72,6 +73,7 @@ app.on('ready', () => {
         title: appConfig.appName,
         content: 'The application is running in background.',
       });
+      scheduleChecker();
     });
 
     bw.on('minimize', (event) => {
