@@ -2,6 +2,7 @@ const fs = require('fs');
 const appConfig = require('../../package');
 const CONSTS = require('./constants');
 
+let main;
 let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\b_schedule.txt';
 if (CONSTS.env === 'dev') {
   filePath = './src/main/resources/schedule.txt';
@@ -57,8 +58,7 @@ const Schedule = class Schedule {
       return;
     }
 
-    const { mainWindow } = require('../../main');
-
+    const mainWindow = main.getMainWindow();
     mainWindow.tray.displayBalloon({
       title: appConfig.appName,
       content: this.getNotificationMessage(),
@@ -108,4 +108,11 @@ function getSchedules() {
   return schedules;
 }
 
-module.exports = getSchedules;
+function start(mainModule) {
+  main = mainModule;
+}
+
+module.exports = {
+  getSchedules,
+  start,
+};

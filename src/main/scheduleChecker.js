@@ -1,10 +1,10 @@
-const getSchedule = require('./schedule');
+const scheduleModule = require('./schedule');
 const iconHelper = require('./iconHelper');
 const CONSTS = require('./constants');
 
 let isBathCleaning = false;
 function processTime() {
-  const schedules = getSchedule();
+  const schedules = scheduleModule.getSchedules();
   if (schedules === undefined) {
     return;
   }
@@ -29,7 +29,7 @@ function processTime() {
 }
 
 function start() {
-  processTime();
+  setTimeout(() => processTime(), 5000);
   setInterval(() => {
     processTime();
   }, CONSTS.runScheduleCheckerTimeout);

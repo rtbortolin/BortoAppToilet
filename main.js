@@ -1,7 +1,7 @@
 require('body-parser');
 require('express');
 
-require('./src/main/schedule');
+const schedule = require('./src/main/schedule');
 const scheduleChecker = require('./src/main/scheduleChecker');
 const electron = require('electron');
 const appConfig = require('./package');
@@ -87,5 +87,13 @@ app.on('ready', () => {
     bw.on('closed', () => { bw = null; });
   }
 });
+
+function getMainWindow() {
+  return bw;
+}
+
+main.getMainWindow = getMainWindow;
+
+schedule.start(main);
 
 module.exports = main;
