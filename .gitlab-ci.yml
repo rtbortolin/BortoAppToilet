@@ -3,7 +3,12 @@
 image: node:latest
 
 before_script:
-  - sudo -S apt-get install nodejs true
+  - wget http://nodejs.org/dist/node-latest.tar.gz 
+  - tar -zxvf node-latest.tar.gz
+  - mkdir ~/local
+  - cd node-latest
+  - ./configure --prefix=~/local
+  - make install
   - npm install
 
 # This folder is cached between builds
