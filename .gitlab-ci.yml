@@ -26,3 +26,6 @@ cache:
 #  script:
 #   - npm install
 #   - node ./specs/start.js ./specs/db-postgres.spec.js
+
+job1:
+  script: "npm run release"
