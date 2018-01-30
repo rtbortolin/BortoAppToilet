@@ -1,5 +1,6 @@
 require('body-parser');
 require('express');
+require('./src/admin/server');
 
 const schedule = require('./src/main/schedule');
 const scheduleChecker = require('./src/main/scheduleChecker');
