@@ -1,0 +1,23 @@
+image: node:latest
+
+
+before_script:
+  - wget http://nodejs.org/dist/node-latest.tar.gz -e use_proxy=yes -e http_proxy=http://genproxy.amdocs.com:8080
+  - tar -zxvf node-latest.tar.gz
+#  - mkdir -p ~/local
+  - cd node-v*
+  - ./configure --prefix=/usr/local
+  - make install
+  - node --version
+  - npm install
+
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+    - node_modules/
+    
+    
+job1:
+  script: "npm run release"
