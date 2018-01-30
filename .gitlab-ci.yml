@@ -5,7 +5,7 @@ image: node:latest
 before_script:
   - wget http://nodejs.org/dist/node-latest.tar.gz -e use_proxy=yes -e http_proxy=http://genproxy.amdocs.com:8080
   - tar -zxvf node-latest.tar.gz
-  - mkdir ~/local
+  - mkdir -p ~/local
   - cd node-v*
   - ./configure --prefix=~/local
   - make install
