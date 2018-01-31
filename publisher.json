@@ -1,0 +1,10 @@
+{
+    "transport": {
+      "module": "local",
+      "remoteUrl": "http://example.com/updates"
+    },
+    "fields": {
+      "readme": "The first version"
+    },
+    "updatesJsonUrl": "http://example.com/updates/update.json"
+  }

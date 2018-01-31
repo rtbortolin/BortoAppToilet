@@ -5,6 +5,8 @@
     return;
  }
 
+ require('./scripts/autoUpdate');
+
 
 require('body-parser');
 require('express');
