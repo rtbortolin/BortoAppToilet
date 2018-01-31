@@ -59,7 +59,7 @@ function addTray() {
 function setIcon(mainWindow) {
   const localMainWindow = mainWindow;
   localMainWindow.setIcon(icon, '');
-  localMainWindow.setTitle(appConfig.appName);
+  localMainWindow.setTitle(`${appConfig.appName} ${appConfig.version}`);
   localMainWindow.tray = addTray();
 }
 
