@@ -5,7 +5,7 @@ const CONSTS = require('./constants');
 let main;
 let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\t_schedule.txt';
 if (CONSTS.env === 'dev') {
-  filePath = './src/main/resources/schedule.txt';
+  filePath = './src/main/resources/schedule.json';
 }
 
 function read(file, callback) {
@@ -77,9 +77,8 @@ const Schedule = class Schedule {
   }
 };
 
-function processLine(line) {
-  const fields = line.split('|');
-  const schedule = new Schedule(fields[0], fields[1], fields[2], fields[3], fields[4]);
+function createSchedule(scheduleObj) {
+  const schedule = new Schedule(scheduleObj.id, scheduleObj.gender, scheduleObj.floor, scheduleObj.startTime, scheduleObj.endTime);
   return schedule;
 }
 
@@ -89,10 +88,10 @@ function getSchedules() {
   if (output === undefined) {
     return undefined;
   }
-  const lines = output.split('\n');
+  const schedulesObj = JSON.parse(output).schedules;
   const newSchedules = [];
-  lines.forEach((line) => {
-    const schedule = processLine(line);
+  schedulesObj.forEach((scheduleObj) => {
+    const schedule = createSchedule(scheduleObj);
     const existingSchedule = schedules.find(sc => sc.id === schedule.id);
     if (existingSchedule === undefined) {
       newSchedules.push(schedule);
