@@ -1,0 +1,10 @@
+{
+  "transport": {
+    "module": "local",
+    "remoteUrl": "http://{host}:{port}/updates"
+  },
+  "fields": {
+    "readme": "The sexta version"
+  },
+  "updatesJsonUrl": "http://{host}:{port}/updates/updates.json"
+}
