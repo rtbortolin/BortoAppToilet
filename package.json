@@ -9,7 +9,8 @@
     "pack": "node scripts/build_release.js",
     "release": "node scripts/createinstaller.js",
     "pack:win": "node_modules/.bin/publish",
-    "dist": "build"
+    "dist": "build",
+    "lint": "./node_modules/.bin/eslint src/*.js scripts/*.js main.js"
   },
   "build": {
     "appId": "com.borto.app.toilet",
