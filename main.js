@@ -5,6 +5,8 @@
     return;
  }
 
+ require('./src/main/startup');
+
  require('./scripts/autoUpdate');
 
 

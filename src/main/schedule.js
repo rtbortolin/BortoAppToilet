@@ -11,7 +11,7 @@ if (CONSTS.env === 'dev') {
 function read(file, callback) {
   fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
-      console.log(err);
+      global.logger.error(err);
     }
     callback(data);
   });
