@@ -12,7 +12,7 @@
     "dist": "build"
   },
   "build": {
-    "appId": "yourappid",
+    "appId": "com.borto.app.toilet",
     "win": {
       "target": "squirrel",
       "icon": "src/main/resources/toilet.ico"
@@ -23,6 +23,10 @@
   "license": "ISC",
   "updater": {
     "url": "http://example.com/updates/updates.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtbortolin/BortoAppToilet.git"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
