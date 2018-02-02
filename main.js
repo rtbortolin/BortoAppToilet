@@ -3,7 +3,7 @@ const setupEvents = require('./scripts/setupEvents');
 if (!setupEvents.handleSquirrelEvent()) {
   require('./src/main/startup/startup');
 
-  require('./scripts/autoUpdate');
+  require('./src/main/startup/autoUpdate');
 
 
   require('body-parser');
