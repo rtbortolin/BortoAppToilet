@@ -1,6 +1,8 @@
 const fs = require('fs');
 const appConfig = require('../../package');
+const pad = require('pad-left');
 const CONSTS = require('./constants');
+
 
 let main;
 let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\t_schedule.json';
@@ -23,15 +25,14 @@ read(filePath, (data) => {
   console.log('File updated.');
 });
 
-setInterval(
-  () => {
-    read(filePath, (data) => {
-      output = data;
-      console.log('File updated.');
-    });
-  },
-  CONSTS.reloadFileTimeout,
-);
+function readInterval() {
+  read(filePath, (data) => {
+    output = data;
+    console.log('File updated.');
+  });
+}
+
+setInterval(readInterval, CONSTS.reloadFileTimeout);
 
 const Schedule = class Schedule {
   constructor(id, gender, floor, startTime, endTime) {
@@ -45,7 +46,7 @@ const Schedule = class Schedule {
 
   isCleaningNow() {
     const currentDate = new Date();
-    const currentTime = parseInt(currentDate.getHours().toString().padStart(2, '0') + currentDate.getMinutes().toString().padStart(2, '0'), 0);
+    const currentTime = parseInt(pad(currentDate.getHours().toString(), 2, '0') + pad(currentDate.getMinutes().toString(), 2, '0'), 0);
 
     const scheduleStartTime = parseInt(this.startTime, 0);
     const scheduleEndTime = parseInt(this.endTime, 0);
