@@ -1,0 +1,10 @@
+{
+  "transport": {
+    "module": "local",
+    "remoteUrl": "http://RAFAELBO03:6565/updates"
+  },
+  "fields": {
+    "readme": "The sexta version"
+  },
+  "updatesJsonUrl": "http://RAFAELBO03:6565/updates/updates.json"
+}

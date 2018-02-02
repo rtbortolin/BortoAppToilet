@@ -1,13 +1,15 @@
-const appConfig = require('../package')
-const exec = require('child_process').exec;
+const jsonfile = require('jsonfile');
+const CONSTs = require('../src/main/constants');
 
-const command = `electron-packager . "${appConfig.appName}" --overwrite --asar=true --platform=win32 --arch=ia32 --icon=src/main/resources/toilet.ico --prune=true --out=release-builds --version-string.CompanyName="${appConfig.company}" --version-string.FileDescription="${appConfig.description}" --version-string.ProductName="${appConfig.appName}"`
+const file = './publisher.template.json';
+const targetFile = './publisher.json';
 
-const child = exec(command,
-    function (error, stdout, stderr) {
-        console.log('stdout: ' + stdout);
-        console.log('stderr: ' + stderr);
-        if (error !== null) {
-            console.log('exec error: ' + error);
-        }
-    });
+const publisher = jsonfile.readFileSync(file);
+
+publisher.transport.remoteUrl = publisher.transport.remoteUrl.replace('{host}', CONSTs.host).replace('{port}', CONSTs.serverPort);
+publisher.updatesJsonUrl = publisher.updatesJsonUrl.replace('{host}', CONSTs.host).replace('{port}', CONSTs.serverPort);
+
+jsonfile.writeFile(targetFile, publisher, { spaces: 2 }, (err) => {
+  console.error(err);
+});
+

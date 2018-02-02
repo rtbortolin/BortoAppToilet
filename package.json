@@ -1,26 +1,53 @@
 {
   "name": "BDCSaoCarlosToiletCleaningAlert",
   "appName": "BDC São Carlos Toilet Cleaning Alert",
-  "version": "1.0.0",
+  "version": "1.11.9",
   "description": "App to show notifications when the bathroons on São Carlos BDC is being cleaned.",
   "main": "main.js",
   "scripts": {
     "dev": "electron .",
-    "release": "node scripts/build_release.js"
+    "pack": "node scripts/build_release.js",
+    "release": "node scripts/createinstaller.js",
+    "pack:win": "node_modules/.bin/publish",
+    "dist": "build",
+    "lint": "./node_modules/.bin/eslint src/*.js scripts/*.js main.js"
+  },
+  "build": {
+    "appId": "com.borto.app.toilet",
+    "win": {
+      "target": "squirrel",
+      "icon": "src/main/resources/toilet.ico"
+    }
   },
   "author": "Rafael Bortolin",
   "company": "Amdocs",
   "license": "ISC",
+  "updater": {
+    "url": "http://rafaelbo03:6565/updates/updates.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtbortolin/BortoAppToilet.git"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "electron": "^1.7.10",
+    "electron-simple-updater": "^1.2.3",
     "express": "^4.16.2",
-    "node-notifier": "^5.2.1"
+    "node-fetch": "^1.7.3",
+    "node-notifier": "^5.2.1",
+    "winston": "^3.0.0-rc1"
   },
-  "dependecies-dev": {
+  "devDependencies": {
+    "electron-builder": "^19.55.3",
+    "electron-builder-squirrel-windows": "^19.56.0",
     "electron-packager": "^10.1.1",
+    "electron-prebuilt": "^1.4.13",
+    "electron-simple-publisher": "^0.4.9",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-winstaller": "^2.6.4",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0"
+    "eslint-plugin-import": "^2.8.0",
+    "jsonfile": "^4.0.0"
   }
 }
