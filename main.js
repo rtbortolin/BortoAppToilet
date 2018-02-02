@@ -1,9 +1,7 @@
 const setupEvents = require('./scripts/setupEvents');
 
 if (!setupEvents.handleSquirrelEvent()) {
-
-
-  require('./src/main/startup');
+  require('./src/main/startup/startup');
 
   require('./scripts/autoUpdate');
 
