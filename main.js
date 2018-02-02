@@ -55,7 +55,7 @@ if (!setupEvents.handleSquirrelEvent()) {
   function setIcon(mainWindow) {
     const localMainWindow = mainWindow;
     localMainWindow.setIcon(icon, '');
-    localMainWindow.setTitle(`${appConfig.appName} ${appConfig.version}`);
+    localMainWindow.setTitle(appConfig.appName);
     localMainWindow.tray = addTray();
   }
 

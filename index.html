@@ -22,9 +22,14 @@
     <tbody>
     </tbody id='tbody'>
   </table>
-
+  <footer>
+    <h5>
+      <span id="txtVersion"></span>
+      </h4>
+  </footer>
   <script>
-    const remote = require('electron').remote;
+    const appConfig = require('./package');
+    document.getElementById('txtVersion').innerHTML = `<small>version: </small>${appConfig.version}`;
   </script>
   <script src="src/main/client/schedule_table.js"></script>
   <script>
