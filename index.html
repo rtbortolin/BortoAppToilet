@@ -2,18 +2,35 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="src/main/client/style.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
 
 <body>
-    <h1>Olá</h1>
-    <script>
+  <table id='schedules' style="width:100%">
+    <thead>
+      <tr>
+        <th>Gender</th>
+        <th>Floor</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody id='tbody'>
+  </table>
+
+  <script>
+    const remote = require('electron').remote;
+  </script>
+  <script src="src/main/client/schedule_table.js"></script>
+  <script>
         //let image = electron.nativeImage.createFromPath(app.getAppPath() + "/resources/semaphore.png");
         //electron.getCurrentWindow().setOverlayIcon(image, 'test');
-    </script>
+  </script>
 </body>
 
 </html>
