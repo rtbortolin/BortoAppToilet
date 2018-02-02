@@ -1,15 +1,18 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const os = require('os');
-const path = require('path');
+const { resolve } = require('path');
 const appConfig = require('../../package.json');
 const CONSTS = require('../main/constants');
 
+const { logger } = global;
 const port = CONSTS.serverPort;
 
-const staticFunc = express.static(path.join(__dirname, '../../build/static'));
+const staticFolder = 'build/static';
+const staticFunc = express.static(staticFolder);
+logger.info(resolve(staticFolder));
 function handleStatiRequest(req, res, next) {
-  console.log(`static request: ${req.originalUrl}`);
+  logger.info(`static request: ${req.originalUrl}`);
   return staticFunc(req, res, next);
 }
 
@@ -22,7 +25,7 @@ function startServer() {
     res.json({ version: appConfig.version });
   });
   server.listen(port, () => {
-    console.log(`SERVER is running on port ${port}.`);
+    logger.info(`SERVER is running on port ${port}.`);
   });
 }
 

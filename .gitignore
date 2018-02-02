@@ -3,3 +3,4 @@ release-builds
 dist
 .vscode
 *.log
+build

@@ -13,7 +13,6 @@ if (env === 'production') {
   host = 'RAFAELBO03';
 }
 
-
 module.exports = {
   reloadFileTimeout,
   runScheduleCheckerTimeout,

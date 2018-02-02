@@ -18,9 +18,7 @@ if (!setupEvents.handleSquirrelEvent()) {
   const appConfig = require('./package');
   const iconHelper = require('./src/main/iconHelper');
 
-  const {
-  app, BrowserWindow, Menu, Tray,
-} = electron;
+  const { app, BrowserWindow, Menu, Tray } = electron;
 
   const main = {};
   let bw;
