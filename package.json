@@ -8,11 +8,12 @@
     "dev": "electron .",
     "pack": "node scripts/build_release.js",
     "release": "node scripts/createinstaller.js",
-    "pack:win": "pack node_modules/.bin/publish",
-    "dist": "build"
+    "pack:win": "node_modules/.bin/publish",
+    "dist": "build",
+    "lint": "./node_modules/.bin/eslint src/*.js scripts/*.js main.js"
   },
   "build": {
-    "appId": "yourappid",
+    "appId": "com.borto.app.toilet",
     "win": {
       "target": "squirrel",
       "icon": "src/main/resources/toilet.ico"
@@ -23,6 +24,10 @@
   "license": "ISC",
   "updater": {
     "url": "http://rafaelbo03:6565/updates/updates.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtbortolin/BortoAppToilet.git"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
