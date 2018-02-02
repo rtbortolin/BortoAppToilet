@@ -9,7 +9,7 @@
     "publish": "npm run dist && npm run pack",
     "pack": "./node_modules/.bin/publish",
     "dist": "build",
-    "lint": "./node_modules/.bin/eslint src/*.js scripts/*.js main.js",
+    "lint": "./node_modules/.bin/eslint src/*.js scripts/*.js",
     "prepush": "npm run lint"
   },
   "build": {

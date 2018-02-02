@@ -1,32 +1,37 @@
-const electron = require('electron')
-const app = electron.app
+const electron = require('electron');  // eslint-disable-line
+
+const { app } = electron;
+
+function funcSpawn(command, ChildProcess, args) {
+  let spawnedProcess;
+
+  try {
+    spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
+  } catch (error) {
+    global.logger.error(error);
+  }
+
+  return spawnedProcess;
+}
 
 module.exports = {
-  handleSquirrelEvent: function () {
+  handleSquirrelEvent() {
     if (process.argv.length === 1) {
       return false;
     }
 
+    /* eslint-disable */
     const ChildProcess = require('child_process');
     const path = require('path');
+    /* eslint-enable */
 
     const appFolder = path.resolve(process.execPath, '..');
     const rootAtomFolder = path.resolve(appFolder, '..');
     const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
     const exeName = path.basename(process.execPath);
-    const spawn = function (command, args) {
-      let spawnedProcess, error;
+    const spawn = funcSpawn;
 
-      try {
-        spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
-      } catch (error) { }
-
-      return spawnedProcess;
-    };
-
-    const spawnUpdate = function (args) {
-      return spawn(updateDotExe, args);
-    };
+    const spawnUpdate = args => spawn(updateDotExe, ChildProcess, args);
 
     const squirrelEvent = process.argv[1];
     switch (squirrelEvent) {
@@ -60,6 +65,8 @@ module.exports = {
 
         app.quit();
         return true;
+      default:
+        return false;
     }
-  }
-}
+  },
+};

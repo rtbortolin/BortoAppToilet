@@ -1,4 +1,5 @@
-const setupEvents = require('./scripts/setupEvents');
+require('./src/main/startup/configlog');
+const setupEvents = require('./src/main/startup/setupEvents');
 
 if (!setupEvents.handleSquirrelEvent()) {
   require('./src/main/startup/startup');
