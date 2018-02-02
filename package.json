@@ -6,11 +6,11 @@
   "main": "main.js",
   "scripts": {
     "dev": "electron .",
-    "pack": "node scripts/build_release.js",
-    "release": "node scripts/createinstaller.js",
-    "pack:win": "node_modules/.bin/publish",
+    "publish": "npm run dist && npm run pack",
+    "pack": "./node_modules/.bin/publish",
     "dist": "build",
-    "lint": "./node_modules/.bin/eslint src/*.js scripts/*.js main.js"
+    "lint": "./node_modules/.bin/eslint src/*.js scripts/*.js main.js",
+    "prepush": "npm run lint"
   },
   "build": {
     "appId": "com.borto.app.toilet",
@@ -41,14 +41,13 @@
   "devDependencies": {
     "electron-builder": "^19.55.3",
     "electron-builder-squirrel-windows": "^19.56.0",
-    "electron-packager": "^10.1.1",
-    "electron-prebuilt": "^1.4.13",
     "electron-simple-publisher": "^0.4.9",
     "electron-squirrel-startup": "^1.0.0",
     "electron-winstaller": "^2.6.4",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
+    "husky": "^0.14.3",
     "jsonfile": "^4.0.0"
   }
 }
