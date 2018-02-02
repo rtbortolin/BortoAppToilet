@@ -1,0 +1,5 @@
+{
+  "eslint.alwaysShowStatus": true,
+  "files.insertFinalNewline": true,
+  "files.eol": "\n"
+}

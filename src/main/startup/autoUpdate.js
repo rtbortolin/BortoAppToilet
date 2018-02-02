@@ -1,7 +1,7 @@
 const updater = require('electron-simple-updater');
-const appConfig = require('../package');
+const appConfig = require('../../../package');
 const os = require('os');
-const CONSTs = require('../src/main/constants');
+const CONSTs = require('../constants');
 
 updater.on('update-downloaded', () => {
   global.logger.info('downloaded.');
