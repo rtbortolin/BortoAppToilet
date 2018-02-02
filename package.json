@@ -1,7 +1,7 @@
 {
   "name": "BDCSaoCarlosToiletCleaningAlert",
   "appName": "BDC São Carlos Toilet Cleaning Alert",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "App to show notifications when the bathroons on São Carlos BDC is being cleaned.",
   "main": "main.js",
   "scripts": {

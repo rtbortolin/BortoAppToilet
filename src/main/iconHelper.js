@@ -21,6 +21,9 @@ class IconHelper {
 
   changeIcon(iscleaning) {
     const mainWindow = this.main.getMainWindow();
+    if (mainWindow == null) {
+      return;
+    }
 
     this.setTrayClick(mainWindow.tray);
 
