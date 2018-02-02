@@ -7,7 +7,7 @@ const CONSTS = require('../main/constants');
 
 const port = CONSTS.serverPort;
 
-const staticFunc = express.static(path.join(__dirname, 'static'));
+const staticFunc = express.static(path.join(__dirname, '../../build/static'));
 function handleStatiRequest(req, res, next) {
   console.log(`static request: ${req.originalUrl}`);
   return staticFunc(req, res, next);
@@ -29,6 +29,5 @@ function startServer() {
 if (os.hostname().toUpperCase().indexOf('RAFAELBO') !== -1) {
   startServer();
 }
-
 
 require('./client');
