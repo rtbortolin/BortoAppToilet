@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const os = require('os');
 const nodefetch = require('node-fetch');
 const CONSTS = require('../main/constants');

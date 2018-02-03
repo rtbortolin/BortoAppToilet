@@ -16,6 +16,9 @@
       ],
       "windows": {
         "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+      },
+      "env": {
+        "NODE_ENV": "dev"
       }
     },
     {

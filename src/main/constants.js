@@ -5,7 +5,8 @@ let runScheduleCheckerTimeout = 10000;
 let checkForUpdatesFrequency = 30000;
 let serverPort = 3003;
 let host = 'localhost';
-if (env === 'production') {
+const isDevEnv = () => env !== 'production';
+if (!isDevEnv()) {
   reloadFileTimeout = 3600000;
   runScheduleCheckerTimeout = 30000;
   checkForUpdatesFrequency = 3600000;
@@ -20,4 +21,5 @@ module.exports = {
   env,
   serverPort,
   host,
+  isDevEnv,
 };

@@ -79,7 +79,13 @@ const Schedule = class Schedule {
 };
 
 function createSchedule(scheduleObj) {
-  const schedule = new Schedule(scheduleObj.id, scheduleObj.gender, scheduleObj.floor, scheduleObj.startTime, scheduleObj.endTime);
+  const schedule = new Schedule(
+    scheduleObj.id,
+    scheduleObj.gender,
+    scheduleObj.floor,
+    scheduleObj.startTime,
+    scheduleObj.endTime,
+  );
   return schedule;
 }
 

@@ -1,14 +1,10 @@
 require('./src/main/startup/configlog');
+
 const setupEvents = require('./src/main/startup/setupEvents');
 
 if (!setupEvents.handleSquirrelEvent()) {
   require('./src/main/startup/startup');
-
   require('./src/main/startup/autoUpdate');
-
-
-  require('body-parser');
-  require('express');
   require('./src/admin/server');
 
   const schedule = require('./src/main/schedule');
@@ -16,6 +12,7 @@ if (!setupEvents.handleSquirrelEvent()) {
   const electron = require('electron');
   const appConfig = require('./package');
   const iconHelper = require('./src/main/iconHelper');
+  const CONSTs = require('./src/main/constants');
 
   const { app, BrowserWindow, Menu, Tray } = electron;
 
@@ -76,7 +73,11 @@ if (!setupEvents.handleSquirrelEvent()) {
         setIcon(bw);
         iconHelper.changeIcon(false);
         event.preventDefault();
-        bw.hide();
+        if (CONSTs.isDevEnv()) {
+          bw.show();
+        } else {
+          bw.hide();
+        }
         bw.tray.displayBalloon({
           title: appConfig.appName,
           content: 'The application is running in background.',

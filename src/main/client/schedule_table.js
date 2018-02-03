@@ -1,35 +1,37 @@
-var sch = require('./src/main/schedule')
+const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 
-var table = document.getElementById("schedules").getElementsByTagName('tbody')[0];
+const { remote } = electron;
+const sch = remote.require('./src/main/schedule');
+const CONSTs = remote.require('./src/main/constants');
+const logger = remote.getGlobal('logger');
+// const sch = require('./src/main/schedule'); // eslint-disable-line
+// const CONSTs = require('./src/main/constants');
 
-var output = sch.output
+let table = document.getElementById('schedules').getElementsByTagName('tbody')[0];
 
 function populateTable(schedules) {
-  schedules.sort(function (a, b) {
-    return a.startTime - b.startTime
-  })
-  schedules.forEach(schedule => {
-    row = table.insertRow(-1)
+  schedules.sort((a, b) => a.startTime - b.startTime);
+  schedules.forEach((schedule) => {
+    const row = table.insertRow(-1);
 
-    row.insertCell(0).innerHTML = schedule.gender
-    row.insertCell(1).innerHTML = schedule.floor
-    row.insertCell(2).innerHTML = schedule.startTime
-    row.insertCell(3).innerHTML = schedule.endTime
+    row.insertCell(0).innerHTML = schedule.gender;
+    row.insertCell(1).innerHTML = schedule.floor;
+    row.insertCell(2).innerHTML = schedule.startTime;
+    row.insertCell(3).innerHTML = schedule.endTime;
   });
 }
 
 function updateTable() {
-  var schedules = sch.getSchedules();
-  console.log(output);
-  if (schedules == undefined) {
+  const schedules = sch.getSchedules();
+  logger.debug(schedules);
+  if (schedules === undefined) {
     setTimeout(updateTable, 1000);
-  }
-  else {
-    var new_table = document.createElement('tbody');
-    table.parentNode.replaceChild(new_table, table);
-    table = new_table
+  } else {
+    const newTable = document.createElement('tbody');
+    table.parentNode.replaceChild(newTable, table);
+    table = newTable;
     populateTable(schedules);
-    setTimeout(updateTable, 30000);
+    setTimeout(updateTable, CONSTs.reloadFileTimeout);
   }
 }
 
