@@ -22,13 +22,13 @@ function read(file, callback) {
 let output;
 read(filePath, (data) => {
   output = data;
-  console.log('File updated.');
+  global.logger.info('File updated.');
 });
 
 function readInterval() {
   read(filePath, (data) => {
     output = data;
-    console.log('File updated.');
+    global.logger.info('File updated.');
   });
 }
 

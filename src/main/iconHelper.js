@@ -1,4 +1,4 @@
-const electron = require('electron');
+const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const appConfig = require('../../package');
 
 const { app } = electron;
