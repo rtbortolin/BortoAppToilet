@@ -3,7 +3,6 @@ const appConfig = require('../../package');
 const pad = require('pad-left');
 const CONSTS = require('./constants');
 
-
 let main;
 let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\t_schedule.json';
 if (CONSTS.env === 'dev') {
@@ -32,6 +31,11 @@ function readInterval() {
   });
 }
 
+function getCurrentTime() {
+  const currentDate = new Date();
+  return parseInt(pad(currentDate.getHours().toString(), 2, '0') + pad(currentDate.getMinutes().toString(), 2, '0'), 0);
+}
+
 setInterval(readInterval, CONSTS.reloadFileTimeout);
 
 const Schedule = class Schedule {
@@ -45,8 +49,7 @@ const Schedule = class Schedule {
   }
 
   isCleaningNow() {
-    const currentDate = new Date();
-    const currentTime = parseInt(pad(currentDate.getHours().toString(), 2, '0') + pad(currentDate.getMinutes().toString(), 2, '0'), 0);
+    const currentTime = getCurrentTime();
 
     const scheduleStartTime = parseInt(this.startTime, 0);
     const scheduleEndTime = parseInt(this.endTime, 0);
@@ -119,6 +122,7 @@ function start(mainModule) {
 }
 
 module.exports = {
+  getCurrentTime,
   getSchedules,
   start,
 };
