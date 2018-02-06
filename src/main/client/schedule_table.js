@@ -50,4 +50,4 @@ function updateTable() {
   }
 }
 
-updateTable();
+setTimeout(updateTable, 2000);
