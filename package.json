@@ -21,7 +21,7 @@
     "dist": "build",
     "lint": "./node_modules/.bin/eslint **/*.js",
     "prepush": "npm run lint && npm run test",
-    "precommit": "npm run test",
+    "precommit": "npm run test && node ./scripts/precommit.js",
     "test": "./node_modules/.bin/mocha tests/**/*.spec.js",
     "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --watch"
   },

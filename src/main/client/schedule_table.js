@@ -46,7 +46,7 @@ function updateTable() {
     table.parentNode.replaceChild(newTable, table);
     table = newTable;
     populateTable(schedules);
-    setTimeout(updateTable, CONSTs.reloadFileTimeout);
+    setTimeout(updateTable, CONSTs.runScheduleCheckerTimeout);
   }
 }
 
