@@ -17,7 +17,7 @@ function populateTable(schedules) {
   schedules.forEach((schedule) => {
     const row = table.insertRow(-1);
 
-    if (schedule.startTime > currentTime) {
+    if (schedule.endTime > currentTime) {
       if (nextScheduleM == null && schedule.gender === 'M') {
         nextScheduleM = schedule;
         row.className = 'nextScheduleM';
