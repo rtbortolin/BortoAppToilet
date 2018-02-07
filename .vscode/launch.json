@@ -19,7 +19,8 @@
       },
       "env": {
         "NODE_ENV": "dev"
-      }
+      },
+      "outputCapture": "std"
     },
     {
       "name": "Electron: Renderer",
