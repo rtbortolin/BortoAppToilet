@@ -3,7 +3,8 @@ require('./src/main/startup/configlog');
 const setupEvents = require('./src/main/startup/setupEvents');
 
 if (!setupEvents.handleSquirrelEvent()) {
-  require('./src/main/startup/startup');
+  const startup = require('./src/main/startup/startup');
+  startup();
   require('./src/main/startup/autoUpdate');
   require('./src/admin/server');
 
