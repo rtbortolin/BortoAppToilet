@@ -65,7 +65,11 @@ if (!setupEvents.handleSquirrelEvent()) {
   app.on('ready', () => {
     app.setAppUserModelId('com.amdocs.bdc.toiletalert');
 
-    bw = new BrowserWindow({ show: false });
+    bw = new BrowserWindow({
+      show: false,
+      frame: true,
+      closable: false,
+    });
     main.mainWindow = bw;
     try {
       bw.loadURL(`file://${app.getAppPath()}/index.html`);

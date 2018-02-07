@@ -8,6 +8,7 @@ const toiletRedIcon = electron.nativeImage.createFromPath(`${app.getAppPath()}/s
 
 class IconHelper {
   constructor() {
+    this.appConfig = appConfig;
     this.schedulesHappening = [];
     this.isTrayOnClickBound = false;
 
@@ -17,6 +18,8 @@ class IconHelper {
     this.addScheduleHapening = this.addScheduleHapening.bind(this);
     this.removeScheduleHapening = this.removeScheduleHapening.bind(this);
     this.main = {};
+
+    this.doubleClicked = false;
   }
 
   changeIcon(iscleaning) {
@@ -25,7 +28,7 @@ class IconHelper {
       return;
     }
 
-    this.setTrayClick(mainWindow.tray);
+    this.setTrayClick(mainWindow);
 
     if (iscleaning) {
       if (mainWindow.icon === undefined || mainWindow.icon === toiletGreenIcon) {
@@ -42,20 +45,40 @@ class IconHelper {
     }
   }
 
-  setTrayClick(tray) {
+  displayNotificationOnClick(tray, message) {
     const localTray = tray;
+    const localMessage = message;
+    setTimeout(() => {
+      if (this.doubleClicked) {
+        this.doubleClicked = false;
+      } else {
+        localTray.displayBalloon({
+          title: this.appConfig.appName,
+          content: localMessage,
+        });
+      }
+    }, 100);
+  }
+
+  setTrayClick(mainWindow) {
+    const localTray = mainWindow.tray;
+    const localWindow = mainWindow;
     if (this.isTrayOnClickBound) {
       return;
     }
 
     localTray.iconHelper = this;
 
-    tray.on('click', () => {
-      const message = tray.iconHelper.getTrayMessage();
-      tray.displayBalloon({
-        title: appConfig.appName,
-        content: message,
-      });
+    localTray.on('double-click', () => {
+      this.doubleClicked = true;
+      localWindow.show();
+      global.logger.info('double clicked');
+    });
+
+    localTray.on('click', () => {
+      const message = localTray.iconHelper.getTrayMessage();
+      this.displayNotificationOnClick(localTray, message);
+      global.logger.info('one click');
     });
 
     this.isTrayOnClickBound = true;
