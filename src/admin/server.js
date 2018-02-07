@@ -29,7 +29,13 @@ function startServer() {
   });
 }
 
-if (os.hostname().toUpperCase().indexOf('RAFAELBO') !== -1) {
+function shouldStartServer() {
+  const isRafaelboHost = os.hostname().toUpperCase().indexOf('RAFAELBO') !== -1;
+  const isDebug = CONSTS.isDevEnv();
+  return isRafaelboHost || isDebug;
+}
+
+if (shouldStartServer()) {
   startServer();
 }
 
