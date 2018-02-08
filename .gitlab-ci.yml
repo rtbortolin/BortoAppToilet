@@ -14,4 +14,3 @@ test:
   script:
   - npm install
   - npm lint
-  - npm test
