@@ -4,4 +4,7 @@ dist
 .vscode
 *.log
 build
-*-lock.json
+.DS_Store
+dist/
+node_modules/
+thumbs.db
