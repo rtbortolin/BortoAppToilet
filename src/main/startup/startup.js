@@ -1,8 +1,5 @@
-const { app } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
-const startWindow = require('./startWindow');
+import startWindow from './startWindow';
 
-function run() {
-  startWindow(app);
+export default function run() {
+  startWindow();
 }
-
-module.exports = run;
