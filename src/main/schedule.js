@@ -121,7 +121,7 @@ function start(mainModule) {
   main = mainModule;
 }
 
-module.exports = {
+export default {
   getCurrentTime,
   getSchedules,
   start,

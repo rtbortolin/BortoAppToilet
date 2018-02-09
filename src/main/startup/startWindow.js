@@ -79,7 +79,6 @@ function createMainWindow() {
     mainWindow = null;
   });
 
-  global.logger.info('oi2');
   window.on('ready-to-show', () => {
     setIcon(mainWindow);
     if (isDevelopment) {
@@ -114,12 +113,27 @@ function bindAppEvents() {
   });
 
   // create main BrowserWindow when electron is ready
-  app.on('ready', () => {
+  if (app.isReady()) {
     mainWindow = createMainWindow();
-  });
+  } else {
+    app.on('ready', () => {
+      mainWindow = createMainWindow();
+    });
+  }
 }
 
-export default function init() {
+function getMainWindow() {
+  return mainWindow;
+}
+main.getMainWindow = getMainWindow;
+
+export function openWindow() {
   bindAppEvents();
   setOpenOnLogin();
 }
+
+function init() {
+  return main;
+}
+
+export default init();

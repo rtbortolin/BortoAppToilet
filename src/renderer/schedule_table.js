@@ -1,13 +1,13 @@
 const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 
 const { remote } = electron;
-const sch = remote.require('./src/main/schedule');
-const CONSTs = remote.require('./src/main/constants');
+const main = remote.require('./main');
+const { scheduleModule } = main.default.scheduleModule;
+const { CONSTs } = main.default.CONSTs;
 const logger = remote.getGlobal('logger');
-// const sch = require('./src/main/schedule'); // eslint-disable-line
-// const CONSTs = require('./src/main/constants');
 
-let table = document.getElementById('schedules').getElementsByTagName('tbody')[0];
+let table = null;
+const sch = scheduleModule;
 
 function populateTable(schedules) {
   schedules.sort((a, b) => a.startTime - b.startTime);
@@ -50,4 +50,7 @@ function updateTable() {
   }
 }
 
-setTimeout(updateTable, 2000);
+export default function startRender(document) {
+  table = document.getElementById('schedules').getElementsByTagName('tbody')[0]; // eslint-disable-line
+  setTimeout(updateTable, 2000);
+}

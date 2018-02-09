@@ -1,5 +1,8 @@
 /* eslint-disable */
+const path = require('path');
+
 module: {
+  devServer: { contentBase: path.join(__dirname, "dist"); compress: true; port: 9000 }
   rules: [
     {
       test: /\.(png|jp(e*)g|svg)$/,

@@ -1,9 +1,9 @@
-const bodyParser = require('body-parser');
-const express = require('express');
-const os = require('os');
-const { resolve } = require('path');
-const appConfig = require('../../package.json');
-const CONSTS = require('../main/constants');
+import bodyParser from 'body-parser';
+import express from 'express';
+import os from 'os';
+import { resolve } from 'path';
+import appConfig from '../../../package.json';
+import CONSTS from '../constants';
 
 const { logger } = global;
 const port = CONSTS.serverPort;
@@ -35,8 +35,10 @@ function shouldStartServer() {
   return isRafaelboHost || isDebug;
 }
 
-if (shouldStartServer()) {
-  startServer();
+function run() {
+  if (shouldStartServer()) {
+    startServer();
+  }
 }
 
-require('./client');
+export default run;

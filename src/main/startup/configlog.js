@@ -1,12 +1,14 @@
 import winston from 'winston';
 
-export default function execute() {
+const logFormat = winston.format.combine(
+  winston.format.timestamp(),
+  winston.format.prettyPrint(),
+);
+
+function execute() {
   const logger = winston.createLogger({
     level: 'info',
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.prettyPrint(),
-    ),
+    format: logFormat,
     transports: [
     //
     // - Write to all logs with level `info` and below to `combined.log`
@@ -28,10 +30,13 @@ export default function execute() {
   //
   if (process.env.NODE_ENV !== 'production') {
     logger.add(new winston.transports.Console({
-      format: winston.format.simple(),
+      level: 'info',
+      format: logFormat,
     }));
   }
 
   logger.log({ level: 'info', message: 'Logger created' });
   global.logger = logger;
 }
+
+export default execute();

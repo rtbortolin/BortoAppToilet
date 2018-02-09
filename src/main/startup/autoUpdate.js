@@ -1,7 +1,7 @@
-const updater = require('electron-simple-updater');
-const appConfig = require('../../../package');
-const os = require('os');
-const CONSTs = require('../constants');
+import updater from 'electron-simple-updater';
+import os from 'os';
+import appConfig from '../../../package.json';
+import CONSTs from '../constants';
 
 updater.on('update-downloaded', () => {
   global.logger.info('downloaded.');
@@ -18,8 +18,11 @@ function checkUpdates() {
   global.logger.error('end checking updates');
 }
 
-global.logger.info('checking update');
-updater.init({ url: `http://${CONSTs.host}:${CONSTs.serverPort}/updates/updates.json?v=${appConfig.version}&h=${os.hostname()}`, logger: global.logger });
-global.logger.info('update completed.');
+function run() {
+  global.logger.info('checking update');
+  updater.init({ url: `http://${CONSTs.host}:${CONSTs.serverPort}/updates/updates.json?v=${appConfig.version}&h=${os.hostname()}`, logger: global.logger });
+  global.logger.info('update completed.');
+  setInterval(checkUpdates, CONSTs.checkForUpdatesFrequency);
+}
 
-setInterval(checkUpdates, CONSTs.checkForUpdatesFrequency);
+export default run;

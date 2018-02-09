@@ -1,10 +1,11 @@
-const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
-const appConfig = require('../../package');
+import electron from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
+import appConfig from '../../package.json';
 
-const { app } = electron;
+import greenPng from '../resources/toilet-green.png';
+import redPng from '../resources/toilet-red.png';
 
-const toiletGreenIcon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-green.png`);
-const toiletRedIcon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-red.png`);
+const toiletGreenIcon = electron.nativeImage.createFromDataURL(greenPng);
+const toiletRedIcon = electron.nativeImage.createFromDataURL(redPng);
 
 class IconHelper {
   constructor() {
@@ -119,4 +120,4 @@ class IconHelper {
   }
 }
 
-module.exports = new IconHelper();
+export default new IconHelper();

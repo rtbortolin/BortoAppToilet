@@ -1,6 +1,6 @@
-const scheduleModule = require('./schedule');
-const iconHelper = require('./iconHelper');
-const CONSTS = require('./constants');
+import scheduleModule from './schedule';
+import iconHelper from './iconHelper';
+import CONSTS from './constants';
 
 let isBathCleaning = false;
 function processTime() {
@@ -35,4 +35,4 @@ function start() {
   }, CONSTS.runScheduleCheckerTimeout);
 }
 
-module.exports = start;
+export default { start };
