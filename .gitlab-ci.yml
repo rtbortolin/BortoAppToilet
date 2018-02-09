@@ -4,6 +4,8 @@ image: node:latest
 before_script:
   - npm config set proxy http://genproxy.amdocs.com:8080
   - npm config set https-proxy http://genproxy.amdocs.com:8080
+  - export http_proxy=http://genproxy.amdocs.com:8080
+  - export https_proxy=http://genproxy.amdocs.com:8080
 
 cache:
   paths:
@@ -12,5 +14,7 @@ cache:
 test:
   stage: test
   script:
+  - npm config get proxy
+  - npm config get https-proxy
   - npm install
-  - npm lint
+  - npm test
