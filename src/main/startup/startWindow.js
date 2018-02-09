@@ -3,12 +3,10 @@ import * as path from 'path';
 import { format as formatUrl } from 'url';
 import CONSTs from '../constants';
 import appConfig from '../../../package.json';
-// import icon from '../resources/toilet-green.png';
+import blackIconData from '../../resources/toilet-black.png';
 
 const isDevelopment = CONSTs.isDevEnv();
-const iconPath = `${app.getAppPath()}/src/main/resources/toilet-green.png`;
-const icon = electron.nativeImage.createFromPath(iconPath);
-
+const blackIcon = electron.nativeImage.createFromDataURL(blackIconData);
 const main = {};
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow;
@@ -40,10 +38,10 @@ function addTray() {
 
   main.contextMenu = contextMenu;
 
-  const appIcon = new Tray(icon);
+  const appIcon = new Tray(blackIcon);
   appIcon.setToolTip('No toilet being cleaned.');
   appIcon.setTitle(appConfig.appName);
-  appIcon.setPressedImage(icon);
+  appIcon.setPressedImage(blackIcon);
   appIcon.setHighlightMode('always');
   appIcon.setContextMenu(contextMenu);
   return appIcon;
@@ -51,13 +49,12 @@ function addTray() {
 
 function setIcon(window) {
   const localMainWindow = window;
-  localMainWindow.setIcon(icon, '');
+  localMainWindow.setIcon(blackIcon, '');
   localMainWindow.setTitle(appConfig.appName);
   localMainWindow.tray = addTray();
 }
 
 function createMainWindow() {
-  global.logger.info(iconPath);
   const window = new BrowserWindow({
     show: false,
     frame: true,
