@@ -77,6 +77,11 @@ function createMainWindow() {
     }));
   }
 
+  window.on('minimize', (event) => {
+    event.preventDefault();
+    window.hide();
+  });
+
   window.on('closed', () => {
     mainWindow = null;
   });
