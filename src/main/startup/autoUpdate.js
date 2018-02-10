@@ -15,7 +15,7 @@ function checkUpdates() {
   } catch (err) {
     global.logger.error(err);
   }
-  global.logger.error('end checking updates');
+  global.logger.info('end checking updates');
 }
 
 function run() {

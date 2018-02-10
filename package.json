@@ -26,7 +26,8 @@
     "lint": "./node_modules/.bin/eslint **/*.js",
     "precommit": "npm run test && lint-staged",
     "test": "./node_modules/.bin/mocha tests/**/*.spec.js",
-    "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --watch"
+    "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --watch",
+    "showconfig": "node ./scripts/showConfig.js"
   },
   "build": {
     "appId": "com.borto.app.toilet",
@@ -41,15 +42,7 @@
       "git add"
     ]
   },
-  "electronWebpack": {
-    "main": {
-      "webpackConfig": "custom.additions.webpack.js"
-    },
-    "renderer": {
-      "webpackConfig": "custom.additions.webpack.js",
-      "webpackDllConfig": "custom.additions.webpack.js"
-    }
-  },
+  "electronWebpack": {},
   "dependencies": {
     "body-parser": "^1.18.2",
     "electron-simple-updater": "^1.2.3",

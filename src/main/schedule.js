@@ -1,18 +1,20 @@
-const fs = require('fs');
-const appConfig = require('../../package');
-const pad = require('pad-left');
-const CONSTS = require('./constants');
+import fs from 'fs';
+import appConfig from '../../package.json';
+import CONSTS from '../common/constants';
+import scheduleHelper from '../common/scheduleHelper';
+
+const { logger } = global;
 
 let main;
 let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\t_schedule.json';
-if (CONSTS.env === 'dev') {
+if (CONSTS.isDevEnv()) {
   filePath = './src/main/resources/schedule.json';
 }
 
 function read(file, callback) {
   fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
-      global.logger.error(err);
+      logger.error(err);
     }
     callback(data);
   });
@@ -21,19 +23,18 @@ function read(file, callback) {
 let output;
 read(filePath, (data) => {
   output = data;
-  global.logger.info('File updated.');
+  logger.info('File updated.');
 });
 
 function readInterval() {
   read(filePath, (data) => {
     output = data;
-    global.logger.info('File updated.');
+    logger.info('File updated.');
   });
 }
 
 function getCurrentTime() {
-  const currentDate = new Date();
-  return parseInt(pad(currentDate.getHours().toString(), 2, '0') + pad(currentDate.getMinutes().toString(), 2, '0'), 0);
+  return scheduleHelper.getCurrentTime();
 }
 
 setInterval(readInterval, CONSTS.reloadFileTimeout);
@@ -46,6 +47,20 @@ const Schedule = class Schedule {
     this.startTime = startTime;
     this.endTime = endTime;
     this.isNotificationShowed = false;
+    this.main = main;
+    this.mainWindow = null;
+    this.getMainWindow();
+  }
+
+  getMainWindow() {
+    const self = this;
+    this.main.getMainWindow()
+      .then((window) => {
+        self.mainWindow = window;
+      })
+      .catch((error) => {
+        logger.warn(`Error on getMainWindow on schedule obj: ${error}`);
+      });
   }
 
   isCleaningNow() {
@@ -62,8 +77,12 @@ const Schedule = class Schedule {
       return;
     }
 
-    const mainWindow = main.getMainWindow();
-    mainWindow.tray.displayBalloon({
+    if (this.mainWindow == null) {
+      logger.info('skiping showNotification due mainWindow null');
+      return;
+    }
+
+    this.mainWindow.tray.displayBalloon({
       title: appConfig.appName,
       content: this.getNotificationMessage(),
     });
@@ -94,10 +113,19 @@ function createSchedule(scheduleObj) {
 
 let schedules = [];
 
+function sendSchedulesToRenderer() {
+  const mainWindowPromisse = main.getMainWindow();
+  mainWindowPromisse.then((window) => {
+    const internalSchedules = schedules;
+    window.webContents.send('on-schedule-update', internalSchedules);
+  });
+}
+
 function getSchedules() {
   if (output === undefined) {
     return undefined;
   }
+
   const schedulesObj = JSON.parse(output).schedules;
   const newSchedules = [];
   schedulesObj.forEach((scheduleObj) => {
@@ -114,6 +142,7 @@ function getSchedules() {
     }
   });
   schedules = newSchedules;
+  sendSchedulesToRenderer();
   return schedules;
 }
 

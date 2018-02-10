@@ -4,6 +4,7 @@ import appConfig from '../../package.json';
 import greenPng from '../resources/toilet-green.png';
 import redPng from '../resources/toilet-red.png';
 
+const { logger } = global;
 const toiletGreenIcon = electron.nativeImage.createFromDataURL(greenPng);
 const toiletRedIcon = electron.nativeImage.createFromDataURL(redPng);
 
@@ -21,13 +22,15 @@ class IconHelper {
     this.main = {};
 
     this.doubleClicked = false;
+    this.mainWindow = null;
   }
 
   changeIcon(iscleaning) {
-    const mainWindow = this.main.getMainWindow();
-    if (mainWindow == null) {
+    if (this.mainWindow == null) {
       return;
     }
+
+    const { mainWindow } = this;
 
     this.setTrayClick(mainWindow);
 
@@ -73,13 +76,13 @@ class IconHelper {
     localTray.on('double-click', () => {
       this.doubleClicked = true;
       localWindow.show();
-      global.logger.info('double clicked');
+      logger.info('double clicked');
     });
 
     localTray.on('click', () => {
       const message = localTray.iconHelper.getTrayMessage();
       this.displayNotificationOnClick(localTray, message);
-      global.logger.info('one click');
+      logger.info('one click');
     });
 
     this.isTrayOnClickBound = true;
@@ -117,6 +120,15 @@ class IconHelper {
 
   start(mainModule) {
     this.main = mainModule;
+    const self = this;
+    this.main.getMainWindow()
+      .then((window) => {
+        self.mainWindow = window;
+        logger.info('main window received on iconHelper');
+      })
+      .catch((error) => {
+        logger.warn(`Error on getMainWindow for iconHelper: ${error}`);
+      });
   }
 }
 

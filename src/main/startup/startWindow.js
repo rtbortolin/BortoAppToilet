@@ -5,6 +5,8 @@ import CONSTs from '../constants';
 import appConfig from '../../../package.json';
 import blackIconData from '../../resources/toilet-black.png';
 
+const { logger } = global;
+
 const isDevelopment = CONSTs.isDevEnv();
 const blackIcon = electron.nativeImage.createFromDataURL(blackIconData);
 const main = {};
@@ -122,8 +124,26 @@ function bindAppEvents() {
   }
 }
 
+function getMainWindowPromisse(resolve, reject, attempts) {
+  if (attempts >= 20) {
+    logger.warn('Rejecting getMainWindowPromisse.');
+    reject('GetMainWindow timeout');
+  }
+  if (mainWindow === undefined) {
+    const localAttempt = attempts + 1;
+    setTimeout(() => { getMainWindowPromisse(resolve, reject, localAttempt); }, 100);
+  } else {
+    resolve(mainWindow);
+  }
+}
 function getMainWindow() {
-  return mainWindow;
+  const mainWindowPromisse = new Promise((resolve, reject) => {
+    if (mainWindow !== undefined) {
+      resolve(mainWindow);
+    }
+    getMainWindowPromisse(resolve, reject, 0);
+  });
+  return mainWindowPromisse;
 }
 main.getMainWindow = getMainWindow;
 
