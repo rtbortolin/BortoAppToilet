@@ -7,13 +7,14 @@ const logFormat = winston.format.combine(
 
 function execute() {
   const logger = winston.createLogger({
+    exitOnError: false,
     level: 'info',
     format: logFormat,
     transports: [
-    //
-    // - Write to all logs with level `info` and below to `combined.log`
-    // - Write all logs error (and below) to `error.log`.
-    //
+      //
+      // - Write to all logs with level `info` and below to `combined.log`
+      // - Write all logs error (and below) to `error.log`.
+      //
       new winston.transports.File({
         filename: 'error.log',
         level: 'error',
@@ -32,6 +33,8 @@ function execute() {
     logger.add(new winston.transports.Console({
       level: 'info',
       format: logFormat,
+      handleExceptions: true,
+      humanReadableUnhandledException: true,
     }));
   }
 
