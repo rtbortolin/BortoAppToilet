@@ -1,7 +1,10 @@
 // Initial welcome page. Delete the following line to remove it.
 /* eslint-disable */
 'use strict';
-import index from './teste.html';
+import path from 'path';
+import templateIndex from './teste.html';
+
+let index = templateIndex.replace('{style.css}', path.join(__static, 'style.css'));
 document.getElementById('app').innerHTML = index;
 
 import scheduleTable from './schedule_table';
