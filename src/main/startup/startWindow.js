@@ -57,6 +57,7 @@ function setIcon(window) {
 }
 
 function createMainWindow() {
+  app.setAppUserModelId('com.amdocs.bdc.toiletalert');
   const window = new BrowserWindow({
     show: false,
     frame: true,
@@ -86,7 +87,8 @@ function createMainWindow() {
     mainWindow = null;
   });
 
-  window.on('ready-to-show', () => {
+  window.on('ready-to-show', (event) => {
+    event.preventDefault();
     setIcon(mainWindow);
     if (isDevelopment) {
       window.show();
@@ -104,10 +106,20 @@ function createMainWindow() {
 }
 
 function bindAppEvents() {
+  // create main BrowserWindow when electron is ready
+  if (app.isReady()) {
+    mainWindow = createMainWindow();
+  } else {
+    app.on('ready', () => {
+      mainWindow = createMainWindow();
+    });
+  }
+
   // quit application when all windows are closed
   app.on('window-all-closed', () => {
     // on macOS it is common for applications to stay open until the user explicitly quits
     if (process.platform !== 'darwin') {
+      app.isQuiting = false;
       app.quit();
     }
   });
@@ -119,14 +131,17 @@ function bindAppEvents() {
     }
   });
 
-  // create main BrowserWindow when electron is ready
-  if (app.isReady()) {
-    mainWindow = createMainWindow();
-  } else {
-    app.on('ready', () => {
-      mainWindow = createMainWindow();
-    });
-  }
+  app.on('quit', () => {
+    logger.info('quiting');
+  });
+
+  app.on('before-quit', (event) => {
+    if (event.sender.isQuiting) {
+      if (mainWindow !== null) {
+        mainWindow.destroy();
+      }
+    }
+  });
 }
 
 function getMainWindowPromisse(resolve, reject, attempts) {
