@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import appConfig from '../../package.json';
 import CONSTS from '../common/constants';
 import scheduleHelper from '../common/scheduleHelper';
@@ -7,14 +8,17 @@ const { logger } = global;
 
 let main;
 let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\t_schedule.json';
+const localFilePath = path.join(__static, '/schedule.json'); // eslint-disable-line no-undef
 if (CONSTS.isDevEnv()) {
-  filePath = './src/main/resources/schedule.json';
+  filePath = localFilePath;
 }
 
 function read(file, callback) {
   fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
       logger.error(err);
+      logger.info('Opening local schedules...');
+      read(localFilePath, callback);
     }
     callback(data);
   });
