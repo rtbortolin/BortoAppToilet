@@ -17,7 +17,7 @@ styles.innerText = `${robotofont}${materialicon}`;
 const head = document.getElementsByTagName('head')[0];
 head.appendChild(styles);
 
-require('./app');
+require('./main');
 
 const body = document.getElementById('content');
 body.innerHTML = templateIndex;

@@ -1,25 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import { remote } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 
 import appConfig from '../../../package.json';
 
-/**
- * A simple example of `AppBar` with an icon on the right.
- * By default, the left icon is a navigation-menu.
- */
+const logger = remote.getGlobal('logger');
 
 const { appName } = appConfig;
 
-const AppBarExampleIcon = () => (
+const MenuComponent = props => (
   <AppBar
     title={appName}
     iconElementRight={
-      <IconButton>
+      <IconButton tooltip="Settings" onClick={props.onSettingsClick}>
         <FontIcon className="material-icons">settings</FontIcon>
       </IconButton>}
   />
 );
 
-export default AppBarExampleIcon;
+MenuComponent.propTypes = {
+  onSettingsClick: PropTypes.func,
+};
+
+MenuComponent.defaultProps = {
+  onSettingsClick: () => { logger.debug('default onSettingsClick'); },
+};
+
+
+export default MenuComponent;
