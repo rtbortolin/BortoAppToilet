@@ -121,6 +121,7 @@ function sendSchedulesToRenderer() {
   const mainWindowPromisse = main.getMainWindow();
   mainWindowPromisse.then((window) => {
     const internalSchedules = schedules;
+    logger.info('schedules sending on main');
     window.webContents.send('on-schedule-update', internalSchedules);
   });
 }

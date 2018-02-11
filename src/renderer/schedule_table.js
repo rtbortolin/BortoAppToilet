@@ -45,6 +45,7 @@ function updateTable(schedules) {
 }
 
 ipcRenderer.on('on-schedule-update', (event, message) => {
+  logger.info('schedules received on renderer');
   updateTable(message);
 });
 

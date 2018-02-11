@@ -16,3 +16,7 @@ th, td {
   background-color: rgb(255, 225, 255);
   font-weight: bold;
 }
+
+body{
+  margin: 0px;
+}

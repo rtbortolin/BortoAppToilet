@@ -1,14 +1,17 @@
 import winston from 'winston';
+import CONSTs from '../../common/constants';
 
 const logFormat = winston.format.combine(
   winston.format.timestamp(),
   winston.format.prettyPrint(),
 );
 
+const logLevel = CONSTs.isDevEnv() ? 'debug' : 'warning';
+
 function execute() {
   const logger = winston.createLogger({
     exitOnError: false,
-    level: 'info',
+    level: logLevel,
     format: logFormat,
     transports: [
       //
@@ -31,7 +34,7 @@ function execute() {
   //
   if (process.env.NODE_ENV !== 'production') {
     logger.add(new winston.transports.Console({
-      level: 'info',
+      level: logLevel,
       format: logFormat,
       handleExceptions: true,
       humanReadableUnhandledException: true,

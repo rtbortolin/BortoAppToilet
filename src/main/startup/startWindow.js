@@ -62,9 +62,7 @@ function createMainWindow() {
     show: false,
     frame: true,
     closable: false,
-    webPreferences: {
-      webSecurity: false,
-    },
+    height: 650,
   });
 
   if (isDevelopment) {
