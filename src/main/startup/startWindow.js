@@ -1,7 +1,7 @@
 import electron, { app, BrowserWindow, Menu, Tray } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 import * as path from 'path';
 import { format as formatUrl } from 'url';
-import CONSTs from '../constants';
+import CONSTs from '../../common/constants';
 import appConfig from '../../../package.json';
 import blackIconData from '../../resources/toilet-black.png';
 

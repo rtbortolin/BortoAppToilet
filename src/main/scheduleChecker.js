@@ -1,6 +1,6 @@
 import scheduleModule from './schedule';
 import iconHelper from './iconHelper';
-import CONSTS from './constants';
+import CONSTS from './../common/constants';
 
 let isBathCleaning = false;
 function processTime() {

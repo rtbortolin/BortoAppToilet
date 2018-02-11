@@ -1,7 +1,7 @@
 import './startup/configlog';
 import setupEvents from './startup/setupEvents';
 import startup from './startup/startup';
-import CONSTs from './constants';
+import CONSTs from '../common/constants';
 
 function startApp() {
   startup();

@@ -3,7 +3,7 @@ import express from 'express';
 import os from 'os';
 import { resolve } from 'path';
 import appConfig from '../../../package.json';
-import CONSTS from '../constants';
+import CONSTS from '../../common/constants';
 
 const { logger } = global;
 const port = CONSTS.serverPort;

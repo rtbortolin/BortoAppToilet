@@ -1,7 +1,7 @@
 import updater from 'electron-simple-updater';
 import os from 'os';
 import appConfig from '../../../package.json';
-import CONSTs from '../constants';
+import CONSTs from '../../common/constants';
 
 updater.on('update-downloaded', () => {
   global.logger.info('downloaded.');
