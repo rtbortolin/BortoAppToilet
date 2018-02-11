@@ -74,6 +74,7 @@
     "electron-builder": "^19.56.0",
     "electron-builder-squirrel-windows": "^19.56.0",
     "electron-react-devtools": "^0.5.3",
+    "electron-redux-devtools": "^0.3.4",
     "electron-simple-publisher": "^0.4.9",
     "electron-squirrel-startup": "^1.0.0",
     "electron-webpack": "1.12.1",

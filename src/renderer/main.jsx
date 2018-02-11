@@ -8,11 +8,12 @@ import { Provider } from 'react-redux';
 
 import reducers from './reducers';
 
-import App from './app';
+import App from './app/app';
 
 const logger = remote.getGlobal('logger');
 
-const store = createStore(reducers);
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const store = createStore(reducers, devTools);
 
 
 ReactDOM.render(

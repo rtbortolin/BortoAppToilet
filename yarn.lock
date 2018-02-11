@@ -2816,6 +2816,10 @@ electron-react-devtools@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/electron-react-devtools/-/electron-react-devtools-0.5.3.tgz#c74edb1245dc1cfe1380b93016cd4eb588ed00b7"
 
+electron-redux-devtools@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/electron-redux-devtools/-/electron-redux-devtools-0.3.4.tgz#21c2eafd739248c6414f1d346e6847b0981550e1"
+
 electron-simple-publisher@^0.4.9:
   version "0.4.9"
   resolved "https://registry.yarnpkg.com/electron-simple-publisher/-/electron-simple-publisher-0.4.9.tgz#0f5db7117e330b7eb87be58d72706e8fbb3716d4"

@@ -17,6 +17,10 @@ th, td {
   font-weight: bold;
 }
 
+.content-body{
+  margin: 0px 10px 0px 10px;
+}
+
 body{
   margin: 0px;
 }

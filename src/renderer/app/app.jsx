@@ -4,23 +4,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { connect } from 'react-redux';
 
-import Menu from './components/menu';
-import Configuration from './config/config-index';
+import Menu from './menu';
+import Configuration from '../config/config-index';
 
 import { remote } from 'electron'; // eslint-disable-line
 
 const logger = remote.getGlobal('logger');
-
-let showSchedules = true;
-
-const displaySchedule = {
-  display: showSchedules ? "block" : "none"
-};
-
-function onSettingsClick(event) {
-  showSchedules = false;
-  logger.info('app settings click');
-}
 
 const App = (props) => {
   const renderContent = () => {
@@ -46,8 +35,10 @@ const App = (props) => {
   return (
     <MuiThemeProvider>
       <div>
-        <Menu onSettingsClick={onSettingsClick} />
-        {renderContent()}
+        <Menu />
+        <div className="content-body">
+          {renderContent()}
+        </div>
       </div>
     </MuiThemeProvider>
   );
