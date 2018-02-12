@@ -1,6 +1,9 @@
 export const pageChange = () => ({
   type: 'PAGE_CHANGED',
-  payload: 'Configuration', // event.target.value,
+  payload: null,
 });
 
-export default () => ('a');
+export const toggleDrawerOpen = () => ({
+  type: 'TOGGLE_DRAWER_OPEN',
+  payload: null,
+});

@@ -6,13 +6,10 @@ import PropTypes from 'prop-types';
 import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Toggle from 'material-ui/Toggle';
-import { remote } from 'electron';
 
 import { startWithWindowsChange, isDarkThemeActiveChange } from './actions';
 
 import Tab from '../app/tab';
-
-const logger = remote.getGlobal('logger');
 
 const ConfigurationIndex = props => (
   <Tab>
