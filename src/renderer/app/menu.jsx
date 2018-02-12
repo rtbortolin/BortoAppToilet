@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
+import { ipcRenderer } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
+
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
@@ -15,7 +17,7 @@ import { pageChange, toggleDrawerOpen } from './actions';
 const { appName } = appConfig;
 
 function handleClose() {
-
+  ipcRenderer.send('exit-app', true);
 }
 
 const MenuComponent = props => (
@@ -30,7 +32,6 @@ const MenuComponent = props => (
     />
     <Drawer
       docked={false}
-      width={200}
       open={props.isDrawerOpen}
       onRequestChange={props.toggleDrawerOpen}
     >

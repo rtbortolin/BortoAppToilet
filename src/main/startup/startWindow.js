@@ -1,4 +1,4 @@
-import electron, { app, BrowserWindow, Menu, Tray } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
+import electron, { app, BrowserWindow, Menu, Tray, ipcMain } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 import * as path from 'path';
 import { format as formatUrl } from 'url';
 import CONSTs from '../../common/constants';
@@ -174,9 +174,17 @@ function getMainWindow() {
 }
 main.getMainWindow = getMainWindow;
 
+function bindIpcEvents() {
+  ipcMain.on('exit-app', () => {
+    app.isQuiting = true;
+    app.quit();
+  });
+}
+
 export function openWindow() {
   bindAppEvents();
   setOpenOnLogin();
+  bindIpcEvents();
 }
 
 function init() {
