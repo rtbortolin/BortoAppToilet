@@ -37,7 +37,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "*.js[x]": [
       "eslint",
       "git add"
     ]
