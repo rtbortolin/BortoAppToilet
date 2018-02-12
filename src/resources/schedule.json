@@ -1,0 +1,109 @@
+{
+  "schedules": [
+    {
+      "endTime": "0830",
+      "floor": "lower",
+      "gender": "M",
+      "id": "0",
+      "startTime": "0800"
+    },
+    {
+      "endTime": "1130",
+      "floor": "lower",
+      "gender": "M",
+      "id": "1",
+      "startTime": "1100"
+    },
+    {
+      "endTime": "1330",
+      "floor": "lower",
+      "gender": "M",
+      "id": "2",
+      "startTime": "1300"
+    },
+    {
+      "endTime": "1730",
+      "floor": "lower",
+      "gender": "M",
+      "id": "3",
+      "startTime": "1700"
+    },
+    {
+      "endTime": "1930",
+      "floor": "lower",
+      "gender": "M",
+      "id": "4",
+      "startTime": "1900"
+    },
+    {
+      "endTime": "1015",
+      "floor": "upper",
+      "gender": "M",
+      "id": "5",
+      "startTime": "0945"
+    },
+    {
+      "endTime": "1440",
+      "floor": "upper",
+      "gender": "M",
+      "id": "6",
+      "startTime": "1410"
+    },
+    {
+      "endTime": "1630",
+      "floor": "upper",
+      "gender": "M",
+      "id": "7",
+      "startTime": "1600"
+    },
+    {
+      "endTime": "1115",
+      "floor": "lower",
+      "gender": "F",
+      "id": "8",
+      "startTime": "1100"
+    },
+    {
+      "endTime": "1315",
+      "floor": "lower",
+      "gender": "F",
+      "id": "9",
+      "startTime": "1330"
+    },
+    {
+      "endTime": "1645",
+      "floor": "lower",
+      "gender": "F",
+      "id": "10",
+      "startTime": "1630"
+    },
+    {
+      "endTime": "1930",
+      "floor": "lower",
+      "gender": "F",
+      "id": "11",
+      "startTime": "1915"
+    },
+    {
+      "endTime": "1015",
+      "floor": "upper",
+      "gender": "F",
+      "id": "12",
+      "startTime": "1000"
+    },
+    {
+      "endTime": "1415",
+      "floor": "upper",
+      "gender": "F",
+      "id": "13",
+      "startTime": "1410"
+    },
+    {
+      "endTime": "1630",
+      "floor": "upper",
+      "gender": "F",
+      "id": "14",
+      "startTime": "1615"
+    }
+  ]
+}

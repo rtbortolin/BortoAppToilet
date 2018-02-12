@@ -3,7 +3,8 @@ require('./src/main/startup/configlog');
 const setupEvents = require('./src/main/startup/setupEvents');
 
 if (!setupEvents.handleSquirrelEvent()) {
-  require('./src/main/startup/startup');
+  const startup = require('./src/main/startup/startup');
+  startup();
   require('./src/main/startup/autoUpdate');
   require('./src/admin/server');
 
@@ -64,7 +65,11 @@ if (!setupEvents.handleSquirrelEvent()) {
   app.on('ready', () => {
     app.setAppUserModelId('com.amdocs.bdc.toiletalert');
 
-    bw = new BrowserWindow({ show: false });
+    bw = new BrowserWindow({
+      show: false,
+      frame: true,
+      closable: false,
+    });
     main.mainWindow = bw;
     try {
       bw.loadURL(`file://${app.getAppPath()}/index.html`);
