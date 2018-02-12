@@ -66,7 +66,7 @@ function createMainWindow() {
   app.setAppUserModelId('com.amdocs.bdc.toiletalert');
   const window = new BrowserWindow({
     show: false,
-    frame: true,
+    frame: isDevelopment !== false,
     closable: false,
     height: 670,
   });
@@ -178,6 +178,13 @@ function bindIpcEvents() {
   ipcMain.on('exit-app', () => {
     app.isQuiting = true;
     app.quit();
+  });
+
+  ipcMain.on('minimize-window', () => {
+    const windowPromisse = getMainWindow();
+    windowPromisse.then((win) => {
+      win.minimize();
+    });
   });
 }
 

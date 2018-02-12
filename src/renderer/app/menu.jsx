@@ -8,13 +8,22 @@ import { ipcRenderer } from 'electron'; // eslint-disable-line import/no-extrane
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
 import appConfig from '../../../package.json';
 import { pageChange, toggleDrawerOpen } from './actions';
+import store from '../store';
 
 const { appName } = appConfig;
+
+function handleMinimize() {
+  store.dispatch(toggleDrawerOpen());
+  setTimeout(() => {
+    ipcRenderer.send('minimize-window', true);
+  }, 250);
+}
 
 function handleClose() {
   ipcRenderer.send('exit-app', true);
@@ -35,6 +44,8 @@ const MenuComponent = props => (
       open={props.isDrawerOpen}
       onRequestChange={props.toggleDrawerOpen}
     >
+      <MenuItem onClick={handleMinimize} >Minimize</MenuItem>
+      <Divider />
       <MenuItem onClick={handleClose}>Exit</MenuItem>
     </Drawer>
   </div>
