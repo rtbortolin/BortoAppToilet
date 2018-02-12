@@ -19,8 +19,8 @@ head.appendChild(styles);
 
 require('./main');
 
-const body = document.getElementById('content');
-body.innerHTML = templateIndex;
+const content = document.getElementById('content');
+content.innerHTML = templateIndex;
 
 scheduleTable(document);
 

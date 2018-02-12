@@ -2,6 +2,7 @@ import electron, { app, BrowserWindow, Menu, Tray } from 'electron'; // eslint-d
 import * as path from 'path';
 import { format as formatUrl } from 'url';
 import CONSTs from '../../common/constants';
+import ConfigHelper from '../../common/configHelper';
 import appConfig from '../../../package.json';
 import blackIconData from '../../resources/toilet-black.png';
 
@@ -14,9 +15,14 @@ const main = {};
 let mainWindow;
 
 function setOpenOnLogin() {
-  app.setLoginItemSettings({
-    openAtLogin: true,
-  });
+  ConfigHelper.getStore().onDidChange(
+    ConfigHelper.keys.START_WITH_WINDOWS,
+    (newValue) => {
+      app.setLoginItemSettings({
+        openAtLogin: newValue,
+      });
+    },
+  );
 }
 
 function showAppClick() {
@@ -62,7 +68,7 @@ function createMainWindow() {
     show: false,
     frame: true,
     closable: false,
-    height: 650,
+    height: 670,
   });
 
   if (isDevelopment) {

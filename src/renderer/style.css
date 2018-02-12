@@ -1,26 +1,52 @@
-table, th, td {
-    border: 1px solid black;
+table,
+th,
+td {
+    border: 1px solid;
     border-collapse: collapse;
+    border-color: black;
 }
-th, td {
+
+th,
+td {
     padding: 5px;
     text-align: left;
 }
 
 .nextScheduleM {
-  background-color: lightcyan;
-  font-weight: bold;
+    background-color: lightblue;
+    color: steelblue;
+    font-weight: bold;
 }
 
 .nextScheduleF {
-  background-color: rgb(255, 225, 255);
-  font-weight: bold;
+    background-color: lightpink;
+    color: tomato;
+    font-weight: bold;
 }
 
-.content-body{
-  margin: 0px 10px 0px 10px;
+.content-body {
+    margin: 5px;
 }
 
-body{
-  margin: 0px;
+.light-background {
+    background-color: whitesmoke;
+}
+
+.dark-background div div div div div div table {
+    color: rgba(255, 255, 255, 0.54);
+    background-color: rgb(48, 48, 48);
+}
+
+.dark-background div div div div div div table th,
+.dark-background div div div div div div table td {
+    border-color: rgba(255, 255, 255, 0.54);
+}
+
+.dark-background {
+    background-color: #212121;
+    color: rgba(255, 255, 255, 0.54);
+}
+
+body {
+    margin: 0px;
 }
