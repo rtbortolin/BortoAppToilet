@@ -16,5 +16,6 @@ test:
   script:
   - npm config get proxy
   - npm config get https-proxy
-  - npm install
-  - npm test
+  - npm install -g yarn
+  - yarn install
+  - yarn test
