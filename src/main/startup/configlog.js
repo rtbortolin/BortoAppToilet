@@ -1,12 +1,25 @@
 import winston from 'winston';
+import os from 'os';
 import CONSTs from '../../common/constants';
+
+const isRafaelboHost = os.hostname().toUpperCase().indexOf('RAFAELBO') !== -1;
 
 const logFormat = winston.format.combine(
   winston.format.timestamp(),
   winston.format.prettyPrint(),
 );
 
-const logLevel = CONSTs.isDevEnv() ? 'debug' : 'warning';
+function getLogLevel() {
+  if (CONSTs.isDevEnv()) {
+    return 'debug';
+  }
+  if (isRafaelboHost) {
+    return 'info';
+  }
+  return 'warning';
+}
+
+const logLevel = getLogLevel();
 
 function execute() {
   const logger = winston.createLogger({
