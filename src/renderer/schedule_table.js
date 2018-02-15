@@ -1,17 +1,15 @@
-const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
+import electron from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
+import scheduleHelper from '../common/scheduleHelper';
 
-const { remote } = electron;
-const sch = remote.require('./src/main/schedule');
-const CONSTs = remote.require('./src/main/constants');
+const { remote, ipcRenderer } = electron;
+
 const logger = remote.getGlobal('logger');
-// const sch = require('./src/main/schedule'); // eslint-disable-line
-// const CONSTs = require('./src/main/constants');
 
-let table = document.getElementById('schedules').getElementsByTagName('tbody')[0];
+let table = null;
 
 function populateTable(schedules) {
   schedules.sort((a, b) => a.startTime - b.startTime);
-  const currentTime = sch.getCurrentTime();
+  const currentTime = scheduleHelper.getCurrentTime();
   let nextScheduleM = null;
   let nextScheduleF = null;
   schedules.forEach((schedule) => {
@@ -36,18 +34,21 @@ function populateTable(schedules) {
   });
 }
 
-function updateTable() {
-  const schedules = sch.getSchedules();
+function updateTable(schedules) {
   logger.debug(schedules);
-  if (schedules === undefined) {
-    setTimeout(updateTable, 1000);
-  } else {
+  if (schedules !== undefined) {
     const newTable = document.createElement('tbody');
     table.parentNode.replaceChild(newTable, table);
     table = newTable;
     populateTable(schedules);
-    setTimeout(updateTable, CONSTs.runScheduleCheckerTimeout);
   }
 }
 
-setTimeout(updateTable, 2000);
+ipcRenderer.on('on-schedule-update', (event, message) => {
+  logger.info('schedules received on renderer');
+  updateTable(message);
+});
+
+export default function startRender(document) {
+  table = document.getElementById('schedules').getElementsByTagName('tbody')[0]; // eslint-disable-line
+}

@@ -1,13 +1,16 @@
-const electron = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
-const appConfig = require('../../package');
+import electron from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
+import appConfig from '../../package.json';
 
-const { app } = electron;
+import greenPng from '../resources/toilet-green.png';
+import redPng from '../resources/toilet-red.png';
 
-const toiletGreenIcon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-green.png`);
-const toiletRedIcon = electron.nativeImage.createFromPath(`${app.getAppPath()}/src/main/resources/toilet-red.png`);
+const { logger } = global;
+const toiletGreenIcon = electron.nativeImage.createFromDataURL(greenPng);
+const toiletRedIcon = electron.nativeImage.createFromDataURL(redPng);
 
 class IconHelper {
   constructor() {
+    this.appConfig = appConfig;
     this.schedulesHappening = [];
     this.isTrayOnClickBound = false;
 
@@ -17,15 +20,19 @@ class IconHelper {
     this.addScheduleHapening = this.addScheduleHapening.bind(this);
     this.removeScheduleHapening = this.removeScheduleHapening.bind(this);
     this.main = {};
+
+    this.doubleClicked = false;
+    this.mainWindow = null;
   }
 
   changeIcon(iscleaning) {
-    const mainWindow = this.main.getMainWindow();
-    if (mainWindow == null) {
+    if (this.mainWindow == null) {
       return;
     }
 
-    this.setTrayClick(mainWindow.tray);
+    const { mainWindow } = this;
+
+    this.setTrayClick(mainWindow);
 
     if (iscleaning) {
       if (mainWindow.icon === undefined || mainWindow.icon === toiletGreenIcon) {
@@ -42,20 +49,40 @@ class IconHelper {
     }
   }
 
-  setTrayClick(tray) {
+  displayNotificationOnClick(tray, message) {
     const localTray = tray;
+    const localMessage = message;
+    setTimeout(() => {
+      if (this.doubleClicked) {
+        this.doubleClicked = false;
+      } else {
+        localTray.displayBalloon({
+          title: this.appConfig.appName,
+          content: localMessage,
+        });
+      }
+    }, 100);
+  }
+
+  setTrayClick(mainWindow) {
+    const localTray = mainWindow.tray;
+    const localWindow = mainWindow;
     if (this.isTrayOnClickBound) {
       return;
     }
 
     localTray.iconHelper = this;
 
-    tray.on('click', () => {
-      const message = tray.iconHelper.getTrayMessage();
-      tray.displayBalloon({
-        title: appConfig.appName,
-        content: message,
-      });
+    localTray.on('double-click', () => {
+      this.doubleClicked = true;
+      localWindow.show();
+      logger.info('double clicked');
+    });
+
+    localTray.on('click', () => {
+      const message = localTray.iconHelper.getTrayMessage();
+      this.displayNotificationOnClick(localTray, message);
+      logger.info('one click');
     });
 
     this.isTrayOnClickBound = true;
@@ -93,7 +120,16 @@ class IconHelper {
 
   start(mainModule) {
     this.main = mainModule;
+    const self = this;
+    this.main.getMainWindow()
+      .then((window) => {
+        self.mainWindow = window;
+        logger.info('main window received on iconHelper');
+      })
+      .catch((error) => {
+        logger.warn(`Error on getMainWindow for iconHelper: ${error}`);
+      });
   }
 }
 
-module.exports = new IconHelper();
+export default new IconHelper();

@@ -19,7 +19,8 @@
       },
       "env": {
         "NODE_ENV": "dev"
-      }
+      },
+      "outputCapture": "std"
     },
     {
       "name": "Electron: Renderer",
@@ -28,6 +29,36 @@
       "port": 9223,
       "webRoot": "${workspaceRoot}",
       "timeout": 30000
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Electron: Main-WEBPACK",
+      "protocol": "inspector",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+      "runtimeArgs": [
+        "--remote-debugging-port=9223",
+        "./dist/main/main.js"
+      ],
+      "windows": {
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+      },
+      "env": {
+        "NODE_ENV": "dev"
+      },
+      "outputCapture": "std"
+    },
+    {
+      "name": "Launch Program",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "program": "${workspaceRoot}/src/main/index.js",
+      "outFiles": [
+        "${workspaceRoot}/dist/main/main.js"
+      ],
+      "sourceMaps": true,
+      "outputCapture": "std"
     }
   ],
   "compounds": [
@@ -39,5 +70,4 @@
       ]
     }
   ]
-]
 }

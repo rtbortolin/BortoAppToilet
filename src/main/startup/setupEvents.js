@@ -1,4 +1,4 @@
-const electron = require('electron');  // eslint-disable-line
+import electron from 'electron';  // eslint-disable-line
 
 const { app } = electron;
 
@@ -14,7 +14,7 @@ function funcSpawn(command, ChildProcess, args) {
   return spawnedProcess;
 }
 
-module.exports = {
+export default {
   handleSquirrelEvent() {
     if (process.argv.length === 1) {
       return false;
