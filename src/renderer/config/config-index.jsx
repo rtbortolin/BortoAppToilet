@@ -7,7 +7,7 @@ import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Toggle from 'material-ui/Toggle';
 
-import { startWithWindowsChange, isDarkThemeActiveChange, isToShowMaleChange } from './actions';
+import { startWithWindowsChange, isDarkThemeActiveChange, isToShowMaleChange, isToShowFemaleChange } from './actions';
 
 import Tab from '../app/tab';
 
@@ -43,6 +43,15 @@ const ConfigurationIndex = props => (
           />
         }
       />
+      <ListItem
+        primaryText="Show Female"
+        rightToggle={
+          <Toggle
+            onToggle={props.handleShowFemaleChange}
+            toggled={props.configurations.showFemale}
+          />
+        }
+      />
     </List>
   </Tab>
 );
@@ -52,10 +61,12 @@ ConfigurationIndex.propTypes = {
     startWithWindows: false,
     isDarkThemeActive: false,
     showMale: true,
+    showFemale: true,
   }).isRequired,
   handleStartWithWindowsChange: PropTypes.func.isRequired,
   handleIsDarkThemeActiveChange: PropTypes.func.isRequired,
   handleShowMaleChange: PropTypes.func.isRequired,
+  handleShowFemaleChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({ configurations: state.configurations });
@@ -64,6 +75,7 @@ const mapDispatchToProps = dispatch => bindActionCreators(
     handleStartWithWindowsChange: startWithWindowsChange,
     handleIsDarkThemeActiveChange: isDarkThemeActiveChange,
     handleShowMaleChange: isToShowMaleChange,
+    handleShowFemaleChange: isToShowFemaleChange,
   },
   dispatch,
 );

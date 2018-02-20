@@ -9,8 +9,10 @@ const logger = remote.getGlobal('logger');
 let table = null;
 
 function checkFilter(schedule) {
-  logger.debug(configHelper.getShowMale());
   if (!configHelper.getShowMale() && schedule.gender === 'M') {
+    return false;
+  }
+  if (!configHelper.getShowFemale() && schedule.gender === 'F') {
     return false;
   }
   return true;

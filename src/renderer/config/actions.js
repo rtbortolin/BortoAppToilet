@@ -13,4 +13,9 @@ export const isToShowMaleChange = (event, isInputChecked) => ({
   payload: isInputChecked,
 });
 
+export const isToShowFemaleChange = (event, isInputChecked) => ({
+  type: 'IS_TO_SHOW_FEMALE_CHANGED',
+  payload: isInputChecked,
+});
+
 export default () => ('a');
