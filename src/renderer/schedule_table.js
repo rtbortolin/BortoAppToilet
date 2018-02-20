@@ -1,11 +1,20 @@
 import electron from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 import scheduleHelper from '../common/scheduleHelper';
+import configHelper from '../common/configHelper';
 
 const { remote, ipcRenderer } = electron;
 
 const logger = remote.getGlobal('logger');
 
 let table = null;
+
+function checkFilter(schedule) {
+  logger.debug(configHelper.getShowMale());
+  if (!configHelper.getShowMale() && schedule.gender === 'M') {
+    return false;
+  }
+  return true;
+}
 
 function populateTable(schedules) {
   schedules.sort((a, b) => a.startTime - b.startTime);
@@ -14,23 +23,26 @@ function populateTable(schedules) {
   let nextScheduleF = null;
   schedules.forEach((schedule) => {
     const row = table.insertRow(-1);
+    const shouldContinue = checkFilter(schedule);
 
-    if (schedule.endTime > currentTime) {
-      if (nextScheduleM == null && schedule.gender === 'M') {
-        nextScheduleM = schedule;
-        row.className = 'nextScheduleM';
+    if (shouldContinue) {
+      if (schedule.endTime > currentTime) {
+        if (nextScheduleM == null && schedule.gender === 'M') {
+          nextScheduleM = schedule;
+          row.className = 'nextScheduleM';
+        }
+
+        if (nextScheduleF == null && schedule.gender === 'F') {
+          nextScheduleF = schedule;
+          row.className = 'nextScheduleF';
+        }
       }
 
-      if (nextScheduleF == null && schedule.gender === 'F') {
-        nextScheduleF = schedule;
-        row.className = 'nextScheduleF';
-      }
+      row.insertCell(0).innerHTML = schedule.gender;
+      row.insertCell(1).innerHTML = schedule.floor;
+      row.insertCell(2).innerHTML = schedule.startTime;
+      row.insertCell(3).innerHTML = schedule.endTime;
     }
-
-    row.insertCell(0).innerHTML = schedule.gender;
-    row.insertCell(1).innerHTML = schedule.floor;
-    row.insertCell(2).innerHTML = schedule.startTime;
-    row.insertCell(3).innerHTML = schedule.endTime;
   });
 }
 
