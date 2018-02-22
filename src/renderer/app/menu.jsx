@@ -44,9 +44,9 @@ const MenuComponent = props => (
       open={props.isDrawerOpen}
       onRequestChange={props.toggleDrawerOpen}
     >
-      <MenuItem onClick={handleMinimize} >Minimize</MenuItem>
+      <MenuItem onClick={handleMinimize} >Minimize to tray</MenuItem>
       <Divider />
-      <MenuItem onClick={handleClose}>Exit</MenuItem>
+      <MenuItem onClick={handleClose}>Close app</MenuItem>
     </Drawer>
   </div>
 );
