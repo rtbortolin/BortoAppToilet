@@ -1,11 +1,20 @@
+import { app } from 'electron'; // eslint-disable-line
 import updater from 'electron-simple-updater';
 import os from 'os';
 import appConfig from '../../../package.json';
 import CONSTs from '../../common/constants';
 
+
+function exitApp() {
+  app.isQuiting = true;
+  app.quit();
+}
+
 updater.on('update-downloaded', () => {
   global.logger.info('downloaded.');
+  app.isQuiting = true;
   updater.quitAndInstall();
+  setTimeout(exitApp, 5000);
 });
 
 function checkUpdates() {
