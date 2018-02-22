@@ -47,6 +47,8 @@ class IconHelper {
       mainWindow.tray.setToolTip(this.getTrayMessage());
       mainWindow.setIcon(toiletGreenIcon, '');
     }
+
+    mainWindow.tray.setToolTip(this.getTrayMessage());
   }
 
   displayNotificationOnClick(tray, message) {
