@@ -39,6 +39,7 @@ const ConfigurationIndex = props => (
         rightToggle={
           <Toggle
             onToggle={props.handleShowMaleChange}
+            disabled={!props.configurations.showFemale}
             toggled={props.configurations.showMale}
           />
         }
@@ -48,6 +49,7 @@ const ConfigurationIndex = props => (
         rightToggle={
           <Toggle
             onToggle={props.handleShowFemaleChange}
+            disabled={!props.configurations.showMale}
             toggled={props.configurations.showFemale}
           />
         }
