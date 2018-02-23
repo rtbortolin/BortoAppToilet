@@ -21,12 +21,15 @@ build:
   script:
   - npm install -g yarn
   - yarn install
+  - yarn compile
 
 test:
   stage: test
   script:
   - npm config get proxy
   - npm config get https-proxy
+  - yarn install
+  - yarn compile
   - yarn test
 
 
