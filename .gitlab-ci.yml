@@ -1,4 +1,4 @@
-image: node-wine:latest
+image: toolhouse/node-wine:latest
 
 
 before_script:
