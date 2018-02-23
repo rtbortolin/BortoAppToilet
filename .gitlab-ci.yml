@@ -36,6 +36,7 @@ test:
 deploy:
   stage: deploy
   script:
+  - apt-get install wine
   - yarn install
   - yarn compile
   - yarn dist:dir
