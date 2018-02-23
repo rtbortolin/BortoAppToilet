@@ -11,11 +11,28 @@ cache:
   paths:
   - node_modules/
 
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+  - npm install -g yarn
+  - yarn install
+
 test:
   stage: test
   script:
   - npm config get proxy
   - npm config get https-proxy
-  - npm install -g yarn
-  - yarn install
   - yarn test
+
+
+deploy:
+  stage: deploy
+  script:
+  - yarn compile
+  - yarn dist:dir
+  - yarn run pack

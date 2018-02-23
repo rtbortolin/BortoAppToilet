@@ -13,11 +13,11 @@
     "type": "git",
     "url": "https://github.com/rtbortolin/BortoAppToilet.git"
   },
-  "main": "main.js",
+  "main": "src/main/index.js",
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder && dist:old",
+    "dist": "yarn compile && electron-builder",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "dev:old": "electron .",
     "publicar": "npm run dist && npm run pack",
