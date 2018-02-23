@@ -1,0 +1,4 @@
+open rafaelbo03
+user bortoapp 123
+put package.json
+bye

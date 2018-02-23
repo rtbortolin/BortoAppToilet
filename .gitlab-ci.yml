@@ -36,6 +36,8 @@ test:
 deploy:
   stage: deploy
   script:
+  - yarn install
   - yarn compile
   - yarn dist:dir
   - yarn run pack
+  - ftp -n < ./scripts/ftp_ci.txt
