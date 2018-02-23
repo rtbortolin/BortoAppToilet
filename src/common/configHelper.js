@@ -8,6 +8,8 @@ class ConfigHelper {
     this.keys = {
       START_WITH_WINDOWS: 'startWithWindows',
       IS_DARK_THEME_ACTIVE: 'isDarkThemeActive',
+      SHOW_MALE: 'showMale',
+      SHOW_FEMALE: 'showFemale',
     };
   }
 
@@ -31,6 +33,20 @@ class ConfigHelper {
   }
   getIsDarkThemeActive() {
     return this.getConfigValue(this.keys.IS_DARK_THEME_ACTIVE, true);
+  }
+
+  setShowMale(value) {
+    this.setConfigValue(this.keys.SHOW_MALE, value);
+  }
+  getShowMale() {
+    return this.getConfigValue(this.keys.SHOW_MALE, true);
+  }
+
+  setShowFemale(value) {
+    this.setConfigValue(this.keys.SHOW_FEMALE, value);
+  }
+  getShowFemale() {
+    return this.getConfigValue(this.keys.SHOW_FEMALE, true);
   }
 
   setConfigValue(key, value) {

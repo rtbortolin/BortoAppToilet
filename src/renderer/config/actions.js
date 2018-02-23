@@ -8,4 +8,14 @@ export const isDarkThemeActiveChange = (event, isInputChecked) => ({
   payload: isInputChecked,
 });
 
+export const isToShowMaleChange = (event, isInputChecked) => ({
+  type: 'IS_TO_SHOW_MALE_CHANGED',
+  payload: isInputChecked,
+});
+
+export const isToShowFemaleChange = (event, isInputChecked) => ({
+  type: 'IS_TO_SHOW_FEMALE_CHANGED',
+  payload: isInputChecked,
+});
+
 export default () => ('a');

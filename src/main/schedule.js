@@ -135,15 +135,19 @@ function getSchedules() {
   const newSchedules = [];
   schedulesObj.forEach((scheduleObj) => {
     const schedule = createSchedule(scheduleObj);
-    const existingSchedule = schedules.find(sc => sc.id === schedule.id);
-    if (existingSchedule === undefined) {
-      newSchedules.push(schedule);
-    } else {
-      existingSchedule.gender = schedule.gender;
-      existingSchedule.floor = schedule.floor;
-      existingSchedule.startTime = schedule.startTime;
-      existingSchedule.endTime = schedule.endTime;
-      newSchedules.push(existingSchedule);
+    const shouldContinue = scheduleHelper.checkFilter(schedule);
+
+    if (shouldContinue) {
+      const existingSchedule = schedules.find(sc => sc.id === schedule.id);
+      if (existingSchedule === undefined) {
+        newSchedules.push(schedule);
+      } else {
+        existingSchedule.gender = schedule.gender;
+        existingSchedule.floor = schedule.floor;
+        existingSchedule.startTime = schedule.startTime;
+        existingSchedule.endTime = schedule.endTime;
+        newSchedules.push(existingSchedule);
+      }
     }
   });
   schedules = newSchedules;

@@ -7,7 +7,7 @@ import { List, ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Toggle from 'material-ui/Toggle';
 
-import { startWithWindowsChange, isDarkThemeActiveChange } from './actions';
+import { startWithWindowsChange, isDarkThemeActiveChange, isToShowMaleChange, isToShowFemaleChange } from './actions';
 
 import Tab from '../app/tab';
 
@@ -33,14 +33,42 @@ const ConfigurationIndex = props => (
           />
         }
       />
+      <Subheader>Filters</Subheader>
+      <ListItem
+        primaryText="Show Male"
+        rightToggle={
+          <Toggle
+            onToggle={props.handleShowMaleChange}
+            disabled={!props.configurations.showFemale}
+            toggled={props.configurations.showMale}
+          />
+        }
+      />
+      <ListItem
+        primaryText="Show Female"
+        rightToggle={
+          <Toggle
+            onToggle={props.handleShowFemaleChange}
+            disabled={!props.configurations.showMale}
+            toggled={props.configurations.showFemale}
+          />
+        }
+      />
     </List>
   </Tab>
 );
 
 ConfigurationIndex.propTypes = {
-  configurations: PropTypes.shape({ startWithWindows: false, isDarkThemeActive: false }).isRequired,
+  configurations: PropTypes.shape({
+    startWithWindows: false,
+    isDarkThemeActive: false,
+    showMale: true,
+    showFemale: true,
+  }).isRequired,
   handleStartWithWindowsChange: PropTypes.func.isRequired,
   handleIsDarkThemeActiveChange: PropTypes.func.isRequired,
+  handleShowMaleChange: PropTypes.func.isRequired,
+  handleShowFemaleChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({ configurations: state.configurations });
@@ -48,6 +76,8 @@ const mapDispatchToProps = dispatch => bindActionCreators(
   {
     handleStartWithWindowsChange: startWithWindowsChange,
     handleIsDarkThemeActiveChange: isDarkThemeActiveChange,
+    handleShowMaleChange: isToShowMaleChange,
+    handleShowFemaleChange: isToShowFemaleChange,
   },
   dispatch,
 );
