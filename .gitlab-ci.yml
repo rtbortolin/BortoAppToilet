@@ -39,5 +39,6 @@ deploy:
   - yarn install
   - yarn compile
   - yarn dist:dir
+  - yarn dist:squirrel
   - yarn run pack
   - ftp -n < ./scripts/ftp_ci.txt
