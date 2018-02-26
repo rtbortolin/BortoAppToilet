@@ -1,4 +1,4 @@
-image: rossimo/node-wine
+image: rtbortolin/node-wine
 
 
 before_script:
