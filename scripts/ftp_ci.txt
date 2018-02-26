@@ -1,4 +1,5 @@
 open rafaelbo03
 user bortoapp 123
+passive
 put package.json
 bye
