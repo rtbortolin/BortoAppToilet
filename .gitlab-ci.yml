@@ -19,7 +19,7 @@ stages:
 build:
   stage: build
   script:
-  - npm install -g yarn
+  - sudo npm install -g yarn
   - yarn install
   - yarn compile
 
@@ -36,7 +36,6 @@ test:
 deploy:
   stage: deploy
   script:
-  - apt-get install wine
   - yarn install
   - yarn compile
   - yarn dist:dir
