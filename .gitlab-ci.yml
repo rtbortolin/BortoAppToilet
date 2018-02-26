@@ -1,4 +1,4 @@
-image: rtbortolin/node-wine:1.0
+image: electronuserland/builder:wine
 
 
 before_script:
@@ -17,24 +17,24 @@ cache:
   - node_modules/
 
 stages:
-  - build
-  - test
+#  - build
+#  - test
   - deploy
 
-build:
-  stage: build
-  script:
-  - yarn install
-  - yarn compile
+#build:
+#  stage: build
+#  script:
+#  - yarn install
+#  - yarn compile
 
-test:
-  stage: test
-  script:
-  - npm config get proxy
-  - npm config get https-proxy
-  - yarn install
-  - yarn compile
-  - yarn test
+#test:
+#  stage: test
+#  script:
+#  - npm config get proxy
+#  - npm config get https-proxy
+#  - yarn install
+#  - yarn compile
+#  - yarn test
 
 
 deploy:
