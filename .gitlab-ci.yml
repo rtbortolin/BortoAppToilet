@@ -19,7 +19,7 @@ stages:
 build:
   stage: build
   script:
-  - sudo npm install -g yarn
+  - sudo -S npm install -g yarn true
   - yarn install
   - yarn compile
 
