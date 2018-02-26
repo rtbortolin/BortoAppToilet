@@ -1,4 +1,4 @@
-image: electronuserland/builder:wine-mono
+image: rtbortolin/electron-build:wine-mono
 
 
 before_script:
