@@ -21,7 +21,7 @@
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
     "dev:old": "electron .",
     "publicar": "npm run dist && npm run pack",
-    "pack": "./node_modules/.bin/publish --win --x64",
+    "pack": "./node_modules/.bin/publish --platform=win32 --arch=x64",
     "dist:squirrel": "build --win --x64",
     "lint": "./node_modules/.bin/eslint **/*.js",
     "precommit": "npm run test && lint-staged",
