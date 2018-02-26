@@ -45,4 +45,4 @@ deploy:
   - yarn dist:dir
   - yarn dist:squirrel
   - yarn run pack
-  - ftp -n < ./scripts/ftp_ci.txt
+  - ncftpput -R -v -u "bortoapp" -p "123" rafaelbo03 publish ./dist/publish/*
