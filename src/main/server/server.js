@@ -8,17 +8,17 @@ import CONSTS from '../../common/constants';
 const { logger } = global;
 const port = CONSTS.serverPort;
 
-const staticFolder = 'build/static';
+const staticFolder = 'C:/Users/RAFAELBO/Downloads/ftp/publish/';
 const staticFunc = express.static(staticFolder);
 logger.info(resolve(staticFolder));
-function handleStatiRequest(req, res, next) {
+function handleStaticRequest(req, res, next) {
   logger.info(`static request: ${req.originalUrl}`);
   return staticFunc(req, res, next);
 }
 
 function startServer() {
   const server = express();
-  server.use('/updates', handleStatiRequest);
+  server.use('/updates', handleStaticRequest);
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
   server.get('/version', (req, res) => {
