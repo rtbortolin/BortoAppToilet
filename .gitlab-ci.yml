@@ -17,25 +17,24 @@ cache:
   - node_modules/
 
 stages:
-#  - build
-#  - test
+  - build
+  - test
   - deploy
 
-#build:
-#  stage: build
-#  script:
-#  - yarn install
-#  - yarn compile
+build:
+  stage: build
+  script:
+  - yarn install
+  - yarn compile
 
-#test:
-#  stage: test
-#  script:
-#  - npm config get proxy
-#  - npm config get https-proxy
-#  - yarn install
-#  - yarn compile
-#  - yarn test
-
+test:
+  stage: test
+  script:
+  - npm config get proxy
+  - npm config get https-proxy
+  - yarn install
+  - yarn compile
+  - yarn test
 
 deploy:
   stage: deploy
