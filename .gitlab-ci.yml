@@ -1,4 +1,4 @@
-image: node:latest
+image: rtbortolin/electron-build:wine-mono
 
 
 before_script:
@@ -6,16 +6,43 @@ before_script:
   - npm config set https-proxy http://genproxy.amdocs.com:8080
   - export http_proxy=http://genproxy.amdocs.com:8080
   - export https_proxy=http://genproxy.amdocs.com:8080
+  - mkdir ~/.npm-global
+  - npm config set prefix '~/.npm-global'
+  - export PATH=~/.npm-global/bin:$PATH
+  - source ~/.profile
+  - npm install -g yarn
 
 cache:
   paths:
   - node_modules/
 
-test:
-  stage: test
+stages:
+#  - build
+#  - test
+  - deploy
+
+#build:
+#  stage: build
+#  script:
+#  - yarn install
+#  - yarn compile
+
+#test:
+#  stage: test
+#  script:
+#  - npm config get proxy
+#  - npm config get https-proxy
+#  - yarn install
+#  - yarn compile
+#  - yarn test
+
+
+deploy:
+  stage: deploy
   script:
-  - npm config get proxy
-  - npm config get https-proxy
-  - npm install -g yarn
   - yarn install
-  - yarn test
+  - yarn compile
+  - yarn dist:dir
+  - yarn dist:squirrel
+  - yarn run pack
+  - ncftpput -R -v -u "bortoapp" -p "123" rafaelbo03 publish ./dist/publish/*
