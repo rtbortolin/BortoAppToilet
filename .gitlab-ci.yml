@@ -11,6 +11,7 @@ before_script:
   - export PATH=~/.npm-global/bin:$PATH
   - source ~/.profile
   - npm install -g yarn
+  - yarn config set strict-ssl false
 
 cache:
   paths:
