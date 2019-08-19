@@ -18,7 +18,7 @@
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
-    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null --download.strictSSL=false",
     "dev:old": "electron .",
     "publicar": "npm run dist && npm run pack",
     "pack": "./node_modules/.bin/publish --platform=win32 --arch=x64",
