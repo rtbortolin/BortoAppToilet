@@ -85,6 +85,7 @@ function createMainWindow() {
     }));
   }
 
+
   window.on('minimize', (event) => {
     event.preventDefault();
     window.hide();
@@ -158,11 +159,14 @@ function getMainWindowPromisse(resolve, reject, attempts) {
   }
   if (mainWindow === undefined) {
     const localAttempt = attempts + 1;
-    setTimeout(() => { getMainWindowPromisse(resolve, reject, localAttempt); }, 100);
+    setTimeout(() => {
+      getMainWindowPromisse(resolve, reject, localAttempt);
+    }, 100);
   } else {
     resolve(mainWindow);
   }
 }
+
 function getMainWindow() {
   const mainWindowPromisse = new Promise((resolve, reject) => {
     if (mainWindow !== undefined) {
@@ -172,6 +176,7 @@ function getMainWindow() {
   });
   return mainWindowPromisse;
 }
+
 main.getMainWindow = getMainWindow;
 
 function bindIpcEvents() {
