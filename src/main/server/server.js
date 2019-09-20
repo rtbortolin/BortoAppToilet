@@ -11,28 +11,39 @@ const port = CONSTS.serverPort;
 const staticFolder = 'C:/Users/RAFAELBO/Downloads/ftp/publish/';
 const staticFunc = express.static(staticFolder);
 logger.info(resolve(staticFolder));
+
 function handleStaticRequest(req, res, next) {
   logger.info(`static request: ${req.originalUrl}`);
   return staticFunc(req, res, next);
 }
 
+const staticAppFunc = express.static(__dirname);
+
+function handleLocalApp(req, res, next) {
+  logger.info(`static local app request: ${req.originalUrl}`);
+  logger.info(__dirname);
+  return staticAppFunc(req, res, next);
+}
+
 function startServer() {
   const server = express();
   server.use('/updates', handleStaticRequest);
+  server.use('/app', handleLocalApp);
   server.use(bodyParser.urlencoded({ extended: true }));
   server.use(bodyParser.json());
   server.get('/version', (req, res) => {
     res.json({ version: appConfig.version });
   });
   server.listen(port, () => {
-    logger.info(`SERVER is running on port ${port}.`);
+    logger.info(`local SERVER is running on port ${port}.`);
   });
 }
 
 function shouldStartServer() {
   const isRafaelboHost = os.hostname().toUpperCase().indexOf('RAFAELBO') !== -1;
   const isDebug = CONSTS.isDevEnv();
-  return isRafaelboHost || isDebug;
+  return true;
+  //return isRafaelboHost || isDebug;
 }
 
 function run() {

@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import { List, ListItem } from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Toggle from 'material-ui/Toggle';
+import { List, ListItem, ListItemText, ListSubheader, ListItemSecondaryAction, Switch } from '@material-ui/core';
+//import Toggle from 'material-ui/Toggle';
 
 import { startWithWindowsChange, isDarkThemeActiveChange, isToShowMaleChange, isToShowFemaleChange } from './actions';
 
@@ -14,51 +13,51 @@ import Tab from '../app/tab';
 const ConfigurationIndex = props => (
   <Tab>
     <List style={{ width: 500 }}>
-      <Subheader>General</Subheader>
-      <ListItem
-        primaryText="Start with Windows"
-        rightToggle={
-          <Toggle
-            onToggle={props.handleStartWithWindowsChange}
-            toggled={props.configurations.startWithWindows}
+      <ListSubheader>General</ListSubheader>
+      <ListItem>
+        <ListItemText primary="Start with Windows" />
+        <ListItemSecondaryAction>
+          <Switch
+            onChange={props.handleStartWithWindowsChange}
+            checked={props.configurations.startWithWindows}
           />
-        }
-      />
-      <ListItem
-        primaryText="Dark Theme"
-        rightToggle={
-          <Toggle
-            onToggle={props.handleIsDarkThemeActiveChange}
-            toggled={props.configurations.isDarkThemeActive}
+        </ListItemSecondaryAction>
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="Dark Theme" />
+        <ListItemSecondaryAction>
+          <Switch
+            onChange={props.handleIsDarkThemeActiveChange}
+            checked={props.configurations.isDarkThemeActive}
           />
-        }
-      />
-      <Subheader>Filters</Subheader>
-      <ListItem
-        primaryText="Show Male"
-        rightToggle={
-          <Toggle
-            onToggle={props.handleShowMaleChange}
+        </ListItemSecondaryAction>
+      </ListItem>
+      <ListSubheader>Filters</ListSubheader>
+      <ListItem>
+        <ListItemText primary="Show Male" />
+        <ListItemSecondaryAction>
+          <Switch
+            onChange={props.handleShowMaleChange}
             disabled={!props.configurations.showFemale}
-            toggled={props.configurations.showMale}
+            checked={props.configurations.showMale}
           />
-        }
-      />
-      <ListItem
-        primaryText="Show Female"
-        rightToggle={
-          <Toggle
-            onToggle={props.handleShowFemaleChange}
+        </ListItemSecondaryAction>
+      </ListItem>
+      <ListItem>
+        <ListItemText primary="Show Female" />
+        <ListItemSecondaryAction>
+          <Switch
+            onChange={props.handleShowFemaleChange}
             disabled={!props.configurations.showMale}
-            toggled={props.configurations.showFemale}
+            checked={props.configurations.showFemale}
           />
-        }
-      />
+        </ListItemSecondaryAction>
+      </ListItem>
     </List>
   </Tab>
 );
 
-ConfigurationIndex.propTypes = {
+ConfigurationIndex.propTypes = PropTypes.shape({
   configurations: PropTypes.shape({
     startWithWindows: false,
     isDarkThemeActive: false,
@@ -69,7 +68,7 @@ ConfigurationIndex.propTypes = {
   handleIsDarkThemeActiveChange: PropTypes.func.isRequired,
   handleShowMaleChange: PropTypes.func.isRequired,
   handleShowFemaleChange: PropTypes.func.isRequired,
-};
+}).isRequired;
 
 const mapStateToProps = state => ({ configurations: state.configurations });
 const mapDispatchToProps = dispatch => bindActionCreators(

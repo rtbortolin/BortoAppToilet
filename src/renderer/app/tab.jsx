@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import { remote } from 'electron'; // eslint-disable-line
@@ -13,9 +13,9 @@ const Tab = props => (
       title={props.tab.title}
       subtitle={props.tab.subtitle}
     />
-    <CardText expandable={false}>
+    <CardContent>
       {props.children}
-    </CardText>
+    </CardContent>
   </Card>
 );
 

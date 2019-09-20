@@ -19,21 +19,11 @@ head.appendChild(styles);
 
 require('./main');
 
-const content = document.getElementById('content');
-content.innerHTML = templateIndex;
+const body = document.getElementsByTagName('body')[0];
+const versionTagHtml = document.createElement('footer');
+versionTagHtml.innerHTML = '<h4><span id="txtVersion"/></h4>';
 
-scheduleTable(document);
+body.append(versionTagHtml);
 
 const tagVersion = document.getElementById('txtVersion');
 tagVersion.innerHTML = `<small>version: </small>${appConfig.version}`;
-
-/*
-import path from 'path';
-import templateIndex from './teste.html';
-
-let index = templateIndex.replace('{style.css}', path.join(__static, 'style.css'));
-document.getElementById('app').innerHTML = index;
-
-import scheduleTable from './schedule_table';
-scheduleTable(document);
-*/
