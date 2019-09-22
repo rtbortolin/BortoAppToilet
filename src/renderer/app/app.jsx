@@ -1,38 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-//import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-//import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-//import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import { CssBaseline } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import tmpMenu from './menu';
+import Menu from './menu';
 import ConfigurationTab from '../config/config-index';
 import SchedulesTab from './tabs/schedulesTab';
 
 import { remote } from 'electron'; // eslint-disable-line
 
-
-//import muiThemeable from 'material-ui/styles/muiThemeable';
-
-const Menu = tmpMenu;
-
-
-const logger = remote.getGlobal('logger');
-
 const App = (props) => {
-  const getThemeType = () => {
-    // eslint-disable-next-line react/prop-types
-    const newPaletteType = props.configurations.isDarkThemeActive ? 'dark' : 'light';
-    return newPaletteType;
-  };
-
-  const [theme, setTheme] = useState({
+  const theme = {
     palette: {
-      type: 'light',
+      type: props.themeType,
     },
-  });
+  };
 
   const renderContent = () => {
     const { page } = props;
@@ -53,44 +36,40 @@ const App = (props) => {
     return '';
   };
 
-  const setBodyClassName = () => {
-    /*
-    if (props.configurations.isDarkThemeActive) {
-      document.getElementsByTagName('body')[0].setAttribute('class', 'dark-background');
-    } else {
-      document.getElementsByTagName('body')[0].setAttribute('class', 'light-background');
-    }
-     */
-  };
   const renderBody = () => (
     <div>
-      {setBodyClassName()}
-      <Menu />
       <div className="content-body">
         {renderContent()}
       </div>
     </div>
   );
 
-  const themeChange = () => {
-    const muiTheme = createMuiTheme(theme);
-    return muiTheme;
-  };
+  const myTheme = createMuiTheme(theme);
   return (
-    <MuiThemeProvider theme={themeChange()}>
-      {renderBody()}
-    </MuiThemeProvider>
+    <React.Fragment>
+      <MuiThemeProvider theme={myTheme}>
+        <CssBaseline />
+        <Menu />
+        {renderBody()}
+      </MuiThemeProvider>
+    </React.Fragment>
   );
 };
 
 App.propTypes = {
   page: PropTypes.string,
+  themeType: PropTypes.string,
 };
 
 App.defaultProps = {
   page: 'Schedules',
+  themeType: 'light',
 };
 
-const mapStateToProps = state => ({ page: state.tab.page, configurations: state.configurations });
+const mapStateToProps = state => ({
+  page: state.tab.page,
+  configurations: state.configurations,
+  themeType: state.configurations.isDarkThemeActive ? 'dark' : 'light',
+});
 
 export default connect(mapStateToProps)(App);

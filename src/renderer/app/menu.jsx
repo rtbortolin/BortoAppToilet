@@ -5,19 +5,26 @@ import PropTypes from 'prop-types';
 
 import { ipcRenderer } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 
-import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Drawer,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import MenuIcon from '@material-ui/icons/Menu';
+import MinimizeIcon from '@material-ui/icons/Minimize';
 import SettingsIcon from '@material-ui/icons/Settings';
-//import IconButton from '@material-ui/core/IconButton';
-//import FontIcon from '@material-ui/core/Icon';
-//import Divider from '@material-ui/core/Divider';
-//import Drawer from '@material-ui/core/Drawer';
-//import MenuItem from '@material-ui/core/MenuItem';
+import CloseIcon from '@material-ui/icons/Close';
 
 import appConfig from '../../../package.json';
 import { pageChange, toggleDrawerOpen } from './actions';
-import store from '../store';
 
 
 const useStyles = makeStyles(theme => ({
@@ -32,20 +39,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MenuComponent = () => {
+const MenuComponent = (props) => {
   const { appName } = appConfig;
   const classes = useStyles();
 
   const handleMinimize = () => {
-    store.dispatch(toggleDrawerOpen());
     setTimeout(() => {
       ipcRenderer.send('minimize-window', true);
     }, 250);
-  };
-
-  const handleSettingsClick = () => {
-    store.dispatch(pageChange());
-    console.log('oi');
   };
 
   const handleClose = () => {
@@ -61,7 +62,7 @@ const MenuComponent = () => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={handleSettingsClick}
+            onClick={props.toggleDrawerOpen}
           >
             <MenuIcon />
           </IconButton>
@@ -72,46 +73,42 @@ const MenuComponent = () => {
             edge="end"
             color="inherit"
             aria-label="menu"
-            onClick={handleSettingsClick}
+            onClick={props.pageChange}
           >
             <SettingsIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
+      <Drawer
+        docked="false"
+        open={props.isDrawerOpen}
+        onClick={props.toggleDrawerOpen}
+      >
+        <Divider />
+        <List>
+          <ListItem button key="Minimize" onClick={handleMinimize}>
+            <ListItemIcon><MinimizeIcon /></ListItemIcon>
+            <ListItemText primary="Minimize to tray" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button key="Close" onClick={handleClose}>
+            <ListItemIcon><CloseIcon /></ListItemIcon>
+            <ListItemText primary="Close app" />
+          </ListItem>
+        </List>
+      </Drawer>
     </div>
   );
 };
 
-/*
-
-
-    <AppBar
-      title={appName}
-      onLeftIconButtonClick={props.toggleDrawerOpen}
-      iconElementRight={
-        <IconButton tooltip="Settings" onClick={props.pageChange}>
-          <FontIcon className="material-icons">settings</FontIcon>
-        </IconButton>}
-    />
-    <Drawer
-      docked={false}
-      open={props.isDrawerOpen}
-      onRequestChange={props.toggleDrawerOpen}
-    >
-      <MenuItem onClick={handleMinimize} >Minimize to tray</MenuItem>
-      <Divider />
-      <MenuItem onClick={handleClose}>Close app</MenuItem>
-    </Drawer>
-
- */
-
-/*
 MenuComponent.propTypes = {
   pageChange: PropTypes.func.isRequired,
   toggleDrawerOpen: PropTypes.func.isRequired,
   isDrawerOpen: PropTypes.bool.isRequired,
 };
-*/
+
 const mapStateToProps = state => ({ isDrawerOpen: state.tab.isDrawerOpen });
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
