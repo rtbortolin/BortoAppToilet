@@ -2,6 +2,7 @@ node_modules
 release-builds
 dist
 .vscode
+.idea
 *.log
 build
 .DS_Store
