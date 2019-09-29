@@ -20,10 +20,6 @@ class App extends Component {
     this.myTheme = createMuiTheme(this.theme);
   }
 
-  componentDidMount() {
-    console.log('pcocquinha');
-  }
-
   renderContentBody() {
     const { page } = this.props;
     if (page === 'Schedules') {
