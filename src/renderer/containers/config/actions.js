@@ -20,4 +20,4 @@ export const isToShowFemaleChange = (event, isInputChecked) => ({
   payload: isInputChecked,
 });
 
-export default () => ('a');
+export default () => ('');

@@ -21,7 +21,7 @@ const staticAppFunc = express.static(__dirname);
 
 function handleLocalApp(req, res, next) {
   logger.info(`static local app request: ${req.originalUrl}`);
-  logger.info(__dirname);
+  logger.info(`server dirname: ${__dirname}`);
   return staticAppFunc(req, res, next);
 }
 

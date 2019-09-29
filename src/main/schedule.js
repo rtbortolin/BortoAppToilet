@@ -16,7 +16,7 @@ if (CONSTS.isDevEnv()) {
 function read(file, callback) {
   fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
-      logger.error(err);
+      logger.error('error loading schedules file.', err);
       logger.info('Opening local schedules...');
       read(localFilePath, callback);
     }
