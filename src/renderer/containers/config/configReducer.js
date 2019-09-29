@@ -1,5 +1,5 @@
-import ConfigHelper from '../../common/configHelper';
-import { ActionTypes as types } from '../constants';
+import ConfigHelper from '../../../common/configHelper';
+import { ActionTypes as types } from '../../constants';
 
 const INITIAL_STATE = {
   startWithWindows: ConfigHelper.getStartWithWindows(),

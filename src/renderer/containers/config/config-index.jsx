@@ -8,7 +8,7 @@ import { List, ListItem, ListItemText, ListSubheader, ListItemSecondaryAction, S
 
 import { startWithWindowsChange, isDarkThemeActiveChange, isToShowMaleChange, isToShowFemaleChange } from './actions';
 
-import Tab from '../app/tab';
+import Tab from '../../app/tab';
 
 const ConfigurationIndex = props => (
   <Tab>

@@ -5,8 +5,8 @@ import { CssBaseline } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import Menu from './menu';
-import ConfigurationTab from '../config/config-index';
-import SchedulesTab from './tabs/schedulesTab';
+import ConfigurationTab from '../containers/config/config-index';
+import SchedulesTab from '../containers/schedulesTab';
 
 import { remote } from 'electron'; // eslint-disable-line
 
@@ -17,7 +17,7 @@ const App = (props) => {
     },
   };
 
-  const renderContent = () => {
+  const renderContentBody = () => {
     const { page } = props;
     if (page === 'Schedules') {
       return (
@@ -36,21 +36,15 @@ const App = (props) => {
     return '';
   };
 
-  const renderBody = () => (
-    <div>
-      <div className="content-body">
-        {renderContent()}
-      </div>
-    </div>
-  );
-
   const myTheme = createMuiTheme(theme);
   return (
     <React.Fragment>
       <MuiThemeProvider theme={myTheme}>
         <CssBaseline />
         <Menu />
-        {renderBody()}
+        <div className="content-body">
+          {renderContentBody()}
+        </div>
       </MuiThemeProvider>
     </React.Fragment>
   );

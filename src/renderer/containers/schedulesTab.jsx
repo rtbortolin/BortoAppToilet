@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SchedulesTable from '../../components/schedule/schedulesTable';
-import Tab from '../tab';
+import SchedulesTable from '../components/schedule/schedulesTable';
+import Tab from '../app/tab';
 
 const SchedulesTab = () => (
   <Tab>

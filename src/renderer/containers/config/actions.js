@@ -1,4 +1,4 @@
-import { ActionTypes as types } from '../constants';
+import { ActionTypes as types } from '../../constants';
 
 export const startWithWindowsChange = (event, isInputChecked) => ({
   type: types.START_WITH_WINDOWS_CHANGED,
