@@ -7,7 +7,7 @@ import scheduleHelper from '../common/scheduleHelper';
 const { logger } = global;
 
 let main;
-let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\t_schedule.json';
+let filePath = path.join(__static, '/schedule.json'); // eslint-disable-line no-undef
 const localFilePath = path.join(__static, '/schedule.json'); // eslint-disable-line no-undef
 if (CONSTS.isDevEnv()) {
   filePath = localFilePath;
@@ -95,7 +95,7 @@ const Schedule = class Schedule {
   }
 
   getNotificationMessage() {
-    const toiletGender = this.gender === 'M' ? "Men's" : "Ladies'";
+    const toiletGender = this.gender === 'M' ? 'Men\'s' : 'Ladies\'';
     return `${toiletGender} toilet on ${this.floor} floor is being cleaned.`;
   }
 
