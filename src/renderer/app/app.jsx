@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
@@ -6,19 +6,26 @@ import { connect } from 'react-redux';
 
 import Menu from './menu';
 import ConfigurationTab from '../containers/config/config-index';
-import SchedulesTab from '../containers/schedulesTab';
+import SchedulesTab from '../containers/schedules/schedulesTab';
 
-import { remote } from 'electron'; // eslint-disable-line
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-const App = (props) => {
-  const theme = {
-    palette: {
-      type: props.themeType,
-    },
-  };
+    this.theme = {
+      palette: {
+        type: props.themeType,
+      },
+    };
+    this.myTheme = createMuiTheme(this.theme);
+  }
 
-  const renderContentBody = () => {
-    const { page } = props;
+  componentDidMount() {
+    console.log('pcocquinha');
+  }
+
+  renderContentBody() {
+    const { page } = this.props;
     if (page === 'Schedules') {
       return (
         <div>
@@ -34,21 +41,22 @@ const App = (props) => {
       );
     }
     return '';
-  };
+  }
 
-  const myTheme = createMuiTheme(theme);
-  return (
-    <React.Fragment>
-      <MuiThemeProvider theme={myTheme}>
-        <CssBaseline />
-        <Menu />
-        <div className="content-body">
-          {renderContentBody()}
-        </div>
-      </MuiThemeProvider>
-    </React.Fragment>
-  );
-};
+  render() {
+    return (
+      <React.Fragment>
+        <MuiThemeProvider theme={this.myTheme}>
+          <CssBaseline />
+          <Menu />
+          <div className="content-body">
+            {this.renderContentBody()}
+          </div>
+        </MuiThemeProvider>
+      </React.Fragment>
+    );
+  }
+}
 
 App.propTypes = {
   page: PropTypes.string,

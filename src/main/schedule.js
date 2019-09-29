@@ -123,6 +123,7 @@ function sendSchedulesToRenderer() {
     const internalSchedules = schedules;
     logger.info('schedules sending on main');
     window.webContents.send('on-schedule-update', internalSchedules);
+    window.webContents.send('on-schedule-update-deprecated', internalSchedules);
   });
 }
 
