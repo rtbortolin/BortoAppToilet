@@ -1,4 +1,5 @@
 import ConfigHelper from '../../common/configHelper';
+import { ActionTypes as types } from '../constants';
 
 const INITIAL_STATE = {
   startWithWindows: ConfigHelper.getStartWithWindows(),
@@ -9,24 +10,36 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'START_WITH_WINDOWS_CHANGED': {
+    case types.START_WITH_WINDOWS_CHANGED: {
       ConfigHelper.setStartWithWindows(action.payload);
-      return { ...state, startWithWindows: action.payload };
+      return {
+        ...state,
+        startWithWindows: action.payload,
+      };
     }
 
-    case 'IS_DARK_THEME_ACTIVE_CHANGED': {
+    case types.IS_DARK_THEME_ACTIVE_CHANGED: {
       ConfigHelper.setIsDarkThemeActive(action.payload);
-      return { ...state, isDarkThemeActive: action.payload };
+      return {
+        ...state,
+        isDarkThemeActive: action.payload,
+      };
     }
 
-    case 'IS_TO_SHOW_MALE_CHANGED': {
+    case types.IS_TO_SHOW_MALE_CHANGED: {
       ConfigHelper.setShowMale(action.payload);
-      return { ...state, showMale: action.payload };
+      return {
+        ...state,
+        showMale: action.payload,
+      };
     }
 
-    case 'IS_TO_SHOW_FEMALE_CHANGED': {
+    case types.IS_TO_SHOW_FEMALE_CHANGED: {
       ConfigHelper.setShowFemale(action.payload);
-      return { ...state, showFemale: action.payload };
+      return {
+        ...state,
+        showFemale: action.payload,
+      };
     }
 
     default:
