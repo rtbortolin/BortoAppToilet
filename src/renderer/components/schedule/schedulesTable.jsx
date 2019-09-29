@@ -8,6 +8,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+
+import ScheduleTableRow from './scheduleTableRow';
+import scheduleHelper from '../../../common/scheduleHelper';
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -27,7 +31,31 @@ const useStyles = makeStyles(theme => ({
 const SchedulesTable = (props) => {
   const classes = useStyles();
 
-  const schedules = () => props.schedules.sort((a, b) => a.startTime - b.startTime);
+  let nextScheduleM = null;
+  let nextScheduleF = null;
+
+  const isNextSchedule = (schedule) => {
+    const currentTime = scheduleHelper.getCurrentTime();
+    if (schedule.endTime > currentTime) {
+      if (nextScheduleM == null && schedule.gender === 'M') {
+        nextScheduleM = schedule;
+        return true;
+      }
+      if (nextScheduleF === null && schedule.gender === 'F') {
+        nextScheduleF = schedule;
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const schedules = () => {
+    nextScheduleF = null;
+    nextScheduleM = null;
+    let result = [...props.schedules];
+    result = result.sort((a, b) => a.startTime - b.startTime);
+    return result;
+  };
 
   return (
     <div className={classes.root}>
@@ -43,14 +71,11 @@ const SchedulesTable = (props) => {
         <TableBody>
           {schedules()
             .map(schedule => (
-              <TableRow key={schedule.id}>
-                <TableCell align="center">
-                  {schedule.gender === 'M' ? 'Male' : 'Female'}
-                </TableCell>
-                <TableCell align="center">{schedule.floor}</TableCell>
-                <TableCell align="center">{schedule.startTime}</TableCell>
-                <TableCell align="center">{schedule.endTime}</TableCell>
-              </TableRow>
+              <ScheduleTableRow
+                key={schedule.id}
+                schedule={schedule}
+                isNextSchedule={isNextSchedule(schedule)}
+              />
             ))}
         </TableBody>
       </Table>
@@ -63,56 +88,3 @@ SchedulesTable.propTypes = {
 };
 
 export default SchedulesTable;
-
-/*
-import React, { Component } from 'react';
-import { Table, TableHead, TableRow, TableCell, Paper } from '@material-ui/core';
-
-
-import './scheduleTable.css';
-
-/*
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-*/
-/*
-class ScheduleTable extends Component {
-  constructor(props) {
-    super(props);
-
-    this.pacoquinha = this.pacoquinha.bind(this);
-  }
-
-  pacoquinha() {
-    this.state = 'oi';
-  }
-
-  render() {
-    return (
-      <Paper>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Gender
-              </TableCell>
-              <TableCell>
-                Floor
-              </TableCell>
-              <TableCell>
-                Start Time
-              </TableCell>
-              <TableCell>
-                End Time
-              </TableCell>
-            </TableRow>
-          </TableHead>
-        </Table>
-      </Paper>
-    );
-  }
-}
-
-export default ScheduleTable;
-*/
