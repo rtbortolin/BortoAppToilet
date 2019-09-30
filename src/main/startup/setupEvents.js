@@ -8,7 +8,7 @@ function funcSpawn(command, ChildProcess, args) {
   try {
     spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
   } catch (error) {
-    global.logger.error(error);
+    global.logger.error('Error spawning process.', error);
   }
 
   return spawnedProcess;

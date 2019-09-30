@@ -22,7 +22,7 @@ function checkUpdates() {
   try {
     updater.checkForUpdates();
   } catch (err) {
-    global.logger.error(err);
+    global.logger.error('Error checking for updates', err);
   }
   global.logger.info('end checking updates');
 }

@@ -1,81 +1,74 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import tmpMenu from './menu';
-import Configuration from '../config/config-index';
+import Menu from './menu';
+import ConfigurationTab from '../containers/config/config-index';
+import SchedulesTab from '../containers/schedules/schedulesTab';
 
-import { remote } from 'electron'; // eslint-disable-line
+class App extends Component {
+  constructor(props) {
+    super(props);
 
+    this.renderContentBody = this.renderContentBody.bind(this);
+  }
 
-import muiThemeable from 'material-ui/styles/muiThemeable';
-const Menu = muiThemeable()(tmpMenu);
-
-
-const logger = remote.getGlobal('logger');
-
-const App = (props) => {
-  const renderContent = () => {
-    const { page } = props;
+  renderContentBody() {
+    const { page } = this.props;
     if (page === 'Schedules') {
       return (
         <div>
-          <div id="content" />
+          <SchedulesTab />
         </div>
       );
     }
     if (page === 'Configurations') {
-      const style = { display: 'none' };
       return (
         <div>
-          <div id="content" style={style} />
-          <Configuration />
+          <ConfigurationTab />
         </div>
       );
     }
     return '';
-  };
-  const setBodyClassName = () => {
-    if (props.configurations.isDarkThemeActive) {
-      document.getElementsByTagName('body')[0].setAttribute('class', 'dark-background');
-    } else {
-      document.getElementsByTagName('body')[0].setAttribute('class', 'light-background');
-    }
-  };
-  const renderBody = () => (
-    <div>
-      {setBodyClassName()}
-      <Menu />
-      <div className="content-body">
-        {renderContent()}
-      </div>
-    </div >
-  );
+  }
 
-  const themeChange = () => {
-    const theme = props.configurations.isDarkThemeActive ? getMuiTheme(darkBaseTheme) : getMuiTheme(lightBaseTheme);
-    return theme;
-  };
-  return (
-    <MuiThemeProvider muiTheme={themeChange()}>
-      {renderBody()}
-    </MuiThemeProvider>
-  );
-};
+  render() {
+    this.myTheme = createMuiTheme({
+      palette: {
+        type: this.props.themeType,
+      },
+    });
+
+    return (
+      <React.Fragment>
+        <MuiThemeProvider theme={this.myTheme}>
+          <CssBaseline />
+          <Menu />
+          <div className="content-body">
+            {this.renderContentBody()}
+          </div>
+        </MuiThemeProvider>
+      </React.Fragment>
+    );
+  }
+}
 
 App.propTypes = {
   page: PropTypes.string,
+  themeType: PropTypes.string,
 };
 
 App.defaultProps = {
   page: 'Schedules',
+  themeType: 'light',
 };
 
-const mapStateToProps = state => ({ page: state.tab.page, configurations: state.configurations });
+const mapStateToProps = state => ({
+  page: state.tab.page,
+  configurations: state.configurations,
+  themeType: state.configurations.isDarkThemeActive ? 'dark' : 'light',
+});
 
 export default connect(mapStateToProps)(App);

@@ -1,9 +1,11 @@
+import { ActionTypes as types } from '../constants';
+
 export const pageChange = () => ({
-  type: 'PAGE_CHANGED',
+  type: types.PAGE_CHANGED,
   payload: null,
 });
 
 export const toggleDrawerOpen = () => ({
-  type: 'TOGGLE_DRAWER_OPEN',
+  type: types.TOGGLE_DRAWER_OPEN,
   payload: null,
 });

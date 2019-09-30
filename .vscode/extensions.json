@@ -6,7 +6,8 @@
     "eamodio.gitlens",
     "EditorConfig.EditorConfig",
     "ms-vscode.node-debug",
-    "ms-vscode.node-debug2"
+    "ms-vscode.node-debug2",
+    "msjsdiag.debugger-for-chrome",
     // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
   ]
 }

@@ -35,7 +35,6 @@ function populateTable(schedules) {
 }
 
 function updateTable(schedules) {
-  logger.debug(schedules);
   if (schedules !== undefined) {
     const newTable = document.createElement('tbody');
     table.parentNode.replaceChild(newTable, table);
@@ -44,7 +43,7 @@ function updateTable(schedules) {
   }
 }
 
-ipcRenderer.on('on-schedule-update', (event, message) => {
+ipcRenderer.on('on-schedule-update-deprecated', (event, message) => {
   logger.info('schedules received on renderer');
   updateTable(message);
 });
