@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { ipcMain } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 import appConfig from '../../package.json';
 import CONSTS from '../common/constants';
 import scheduleHelper from '../common/scheduleHelper';
@@ -155,9 +156,16 @@ function getSchedules() {
   return schedules;
 }
 
+function bindGetSchedules() {
+  ipcMain.on('get-schedules', (event, arg) => {
+    logger.info('get-schedules async message received', arg);
+    event.reply('get-schedules-reply', getSchedules());
+  });
+}
+
 function start(mainModule) {
   main = mainModule;
-  getSchedules();
+  bindGetSchedules();
 }
 
 export default {

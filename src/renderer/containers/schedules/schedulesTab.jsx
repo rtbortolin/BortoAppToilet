@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { remote } from 'electron';
+import { remote } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 
 import SchedulesTable from '../../components/schedule/schedulesTable';
 import * as actions from './schedulesActions';
@@ -28,6 +28,11 @@ class SchedulesTab extends Component {
 
   componentDidMount() {
     this.props.dispatch(actions.subscribeSchedulesUpdate());
+    this.props.dispatch(actions.getSchedules());
+  }
+
+  componentWillUnmount() {
+    actions.unsubscribeSchedulesUpdate();
   }
 
   render() {

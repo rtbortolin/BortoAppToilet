@@ -9,6 +9,7 @@ export const ActionTypes = keyMirror({
   IS_TO_SHOW_MALE_CHANGED: null,
   IS_TO_SHOW_FEMALE_CHANGED: null,
 
+  SUBSCRIBE_SCHEDULES_UPDATE: null,
   FETCH_SCHEDULES_SUCCESS: null,
   FETCH_SCHEDULES_START: null,
 });
