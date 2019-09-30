@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { ipcMain } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 import appConfig from '../../package.json';
 import CONSTS from '../common/constants';
 import scheduleHelper from '../common/scheduleHelper';
@@ -7,7 +8,7 @@ import scheduleHelper from '../common/scheduleHelper';
 const { logger } = global;
 
 let main;
-let filePath = '\\\\ntnet\\filestore1\\Competency_Center_Root\\CMCC\\RtB\\t_schedule.json';
+let filePath = path.join(__static, '/schedule.json'); // eslint-disable-line no-undef
 const localFilePath = path.join(__static, '/schedule.json'); // eslint-disable-line no-undef
 if (CONSTS.isDevEnv()) {
   filePath = localFilePath;
@@ -16,7 +17,7 @@ if (CONSTS.isDevEnv()) {
 function read(file, callback) {
   fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
-      logger.error(err);
+      logger.error('error loading schedules file.', err);
       logger.info('Opening local schedules...');
       read(localFilePath, callback);
     }
@@ -95,7 +96,7 @@ const Schedule = class Schedule {
   }
 
   getNotificationMessage() {
-    const toiletGender = this.gender === 'M' ? "Men's" : "Ladies'";
+    const toiletGender = this.gender === 'M' ? 'Men\'s' : 'Ladies\'';
     return `${toiletGender} toilet on ${this.floor} floor is being cleaned.`;
   }
 
@@ -155,8 +156,16 @@ function getSchedules() {
   return schedules;
 }
 
+function bindGetSchedules() {
+  ipcMain.on('get-schedules', (event, arg) => {
+    logger.info('get-schedules async message received', arg);
+    event.reply('get-schedules-reply', getSchedules());
+  });
+}
+
 function start(mainModule) {
   main = mainModule;
+  bindGetSchedules();
 }
 
 export default {

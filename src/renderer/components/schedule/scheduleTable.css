@@ -1,19 +1,27 @@
-.nextScheduleM {
-  background-color: lightblue;
-  font-weight: bold;
+table,
+th,
+td {
+  border: 1px solid;
+  border-collapse: collapse;
+  border-color: black;
 }
 
-.nextScheduleM > td {
+th,
+td {
+  padding: 5px;
+  text-align: left;
+}
+
+.nextScheduleM {
+  background-color: lightblue;
   color: steelblue;
+  font-weight: bold;
 }
 
 .nextScheduleF {
   background-color: lightpink;
-  font-weight: bold;
-}
-
-.nextScheduleF > td {
   color: tomato;
+  font-weight: bold;
 }
 
 .content-body {
