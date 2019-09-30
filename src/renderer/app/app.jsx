@@ -12,12 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.theme = {
-      palette: {
-        type: props.themeType,
-      },
-    };
-    this.myTheme = createMuiTheme(this.theme);
+    this.renderContentBody = this.renderContentBody.bind(this);
   }
 
   renderContentBody() {
@@ -40,6 +35,12 @@ class App extends Component {
   }
 
   render() {
+    this.myTheme = createMuiTheme({
+      palette: {
+        type: this.props.themeType,
+      },
+    });
+
     return (
       <React.Fragment>
         <MuiThemeProvider theme={this.myTheme}>
