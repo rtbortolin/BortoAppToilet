@@ -42,8 +42,7 @@ function startServer() {
 function shouldStartServer() {
   const isRafaelboHost = os.hostname().toUpperCase().indexOf('RAFAELBO') !== -1;
   const isDebug = CONSTS.isDevEnv();
-  return true;
-  //return isRafaelboHost || isDebug;
+  return isRafaelboHost || isDebug;
 }
 
 function run() {
