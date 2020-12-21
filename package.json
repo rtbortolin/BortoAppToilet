@@ -58,7 +58,7 @@
     "keymirror": "^0.1.1",
     "lodash": "^4.17.15",
     "node-fetch": "^1.7.3",
-    "node-notifier": "^5.2.1",
+    "node-notifier": "^8.0.1",
     "pad-left": "^2.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.10.1",
