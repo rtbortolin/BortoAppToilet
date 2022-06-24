@@ -57,7 +57,7 @@
     "express": "^4.16.2",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.15",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.6.7",
     "node-notifier": "^5.2.1",
     "pad-left": "^2.1.0",
     "prop-types": "^15.7.2",
