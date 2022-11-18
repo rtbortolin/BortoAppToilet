@@ -84,7 +84,7 @@
     "electron-redux-devtools": "^0.3.4",
     "electron-simple-publisher": "^0.4.9",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-webpack": "1.12.1",
+    "electron-webpack": "2.8.2",
     "electron-winstaller": "^2.6.4",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
